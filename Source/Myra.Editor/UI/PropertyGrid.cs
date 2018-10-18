@@ -186,12 +186,12 @@ namespace Myra.Editor.UI
 
 			public override void InternalRender(RenderContext context)
 			{
-				if (_propertyGrid.PropertyGridStyle.RowHoverBackground != null)
+				if (_propertyGrid.PropertyGridStyle.SelectionHoverBackground != null)
 				{
 					var headerBounds = HeaderBounds;
 					if (headerBounds.Contains(Desktop.MousePosition))
 					{
-						_propertyGrid.PropertyGridStyle.RowHoverBackground.Draw(context.Batch, headerBounds);
+						_propertyGrid.PropertyGridStyle.SelectionHoverBackground.Draw(context.Batch, headerBounds);
 					}
 				}
 
