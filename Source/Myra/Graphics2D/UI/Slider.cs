@@ -136,14 +136,14 @@ namespace Myra.Graphics2D.UI
 				hint = MaxHint;
 			}
 
-			Hint = hint;
-
 			// Sync Value with Hint
 			if (MaxHint != 0)
 			{
 				var d = Maximum - Minimum;
-				_value = Minimum + Hint * d / MaxHint;
+				_value = Minimum + hint * d / MaxHint;
 			}
+
+			Hint = hint;
 
 			_mousePos = mousePos;
 		}

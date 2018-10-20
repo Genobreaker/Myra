@@ -8,10 +8,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Myra.Attributes;
 using Myra.Editor.Utils;
-using Myra.Graphics.UI.ColorPicker;
-using Myra.Graphics2D;
 using Myra.Graphics2D.TextureAtlases;
 using Myra.Graphics2D.UI;
+using Myra.Graphics2D.UI.ColorPicker;
 using Myra.Graphics2D.UI.Styles;
 using Myra.Utility;
 
@@ -400,11 +399,12 @@ namespace Myra.Editor.UI
 						{
 							var dlg = new ColorPickerDialog()
 							{
+								Color = image.Color
 							};
 
 							dlg.Closed += (s, a) =>
 							{
-								if (dlg.ModalResult != (int)Graphics2D.UI.Window.DefaultModalResult.Ok)
+								if (dlg.ModalResult != (int)Window.DefaultModalResult.Ok)
 								{
 									return;
 								}

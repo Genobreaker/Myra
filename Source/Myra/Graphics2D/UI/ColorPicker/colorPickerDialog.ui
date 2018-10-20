@@ -30,7 +30,7 @@
         "R": 255,
         "A": 255
       },
-      "RowSpacing": 4,
+      "RowSpacing": -1,
       "ColumnsProportions": [],
       "RowsProportions": [
         {
@@ -73,7 +73,9 @@
             "A": 255
           },
           "Id": "_imageColor",
-          "HeightHint": 50
+          "HeightHint": 50,
+          "HorizontalAlignment": 3,
+          "VerticalAlignment": 3
         },
         {
           "$id": "14",
@@ -316,6 +318,8 @@
                   "GridPositionY": 3
                 }
               ],
+              "PaddingTop": 4,
+              "PaddingBottom": 4,
               "HorizontalAlignment": 3,
               "VerticalAlignment": 3
             },
@@ -509,6 +513,8 @@
                   "CanFocus": true
                 }
               ],
+              "PaddingTop": 4,
+              "PaddingBottom": 4,
               "HorizontalAlignment": 3,
               "VerticalAlignment": 3,
               "GridPositionX": 2
@@ -666,7 +672,7 @@
       "A": 255
     },
     "XHint": 216,
-    "YHint": 212,
+    "YHint": 220,
     "WidthHint": 450,
     "PaddingLeft": 5,
     "PaddingRight": 5,
