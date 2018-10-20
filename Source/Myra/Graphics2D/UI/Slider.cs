@@ -46,9 +46,20 @@ namespace Myra.Graphics2D.UI
 					value = Minimum;
 				}
 
+				if (_value == value)
+				{
+					return;
+				}
+
 				_value = value;
 
 				SyncHintWithValue();
+
+				var ev = ValueChanged;
+				if (ev != null)
+				{
+					ev(this, EventArgs.Empty);
+				}
 			}
 		}
 
@@ -71,12 +82,6 @@ namespace Myra.Graphics2D.UI
 				{
 					Widget.YHint = value;
 				}
-
-				var ev = ValueChanged;
-				if (ev != null)
-				{
-					ev(this, EventArgs.Empty);
-				}
 			}
 		}
 
@@ -90,7 +95,15 @@ namespace Myra.Graphics2D.UI
 			}
 		}
 
+		/// <summary>
+		/// Fires when the value had been changed
+		/// </summary>
 		public event EventHandler ValueChanged;
+
+		/// <summary>
+		/// Fires only when the value had been changed by user(doesnt fire if it had been assigned through code)
+		/// </summary>
+		public event EventHandler ValueChangedByUser;
 
 		protected Slider(SliderStyle sliderStyle)
 		{
@@ -136,14 +149,36 @@ namespace Myra.Graphics2D.UI
 				hint = MaxHint;
 			}
 
+			var valueChanged = false;
 			// Sync Value with Hint
 			if (MaxHint != 0)
 			{
 				var d = Maximum - Minimum;
-				_value = Minimum + hint * d / MaxHint;
+
+				var newValue = Minimum + hint * d / MaxHint;
+				if (_value != newValue)
+				{
+					_value = newValue;
+					valueChanged = true;
+				}
 			}
 
 			Hint = hint;
+
+			if (valueChanged)
+			{
+				var ev = ValueChanged;
+				if (ev != null)
+				{
+					ev(this, EventArgs.Empty);
+				}
+
+				ev = ValueChangedByUser;
+				if (ev != null)
+				{
+					ev(this, EventArgs.Empty);
+				}
+			}
 
 			_mousePos = mousePos;
 		}

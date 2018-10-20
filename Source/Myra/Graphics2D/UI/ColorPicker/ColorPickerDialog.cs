@@ -7,6 +7,7 @@ namespace Myra.Graphics2D.UI.ColorPicker
 {
 	public partial class ColorPickerDialog : Dialog
 	{
+		private const string HexChars = "1234567890ABCDEFabcdef";
 		private bool _suppressHSV = false;
 
 		public Color Color
@@ -86,21 +87,34 @@ namespace Myra.Graphics2D.UI.ColorPicker
 			BuildUI();
 
 			// Subscriptions
-			_textFieldHex.Tag = false;
-
-			SubscribeSpinButton(_spinButtonR, value => R = value);
-			SubscribeSpinButton(_spinButtonG, value => G = value);
-			SubscribeSpinButton(_spinButtonB, value => B = value);
-			SubscribeSpinButton(_spinButtonA, value => A = value);
-
-			SubscribeSlider(_sliderR, value => R = value);
-			SubscribeSlider(_sliderG, value => G = value);
-			SubscribeSlider(_sliderB, value => B = value);
-			SubscribeSlider(_sliderA, value => A = value);
+			SubscribeRGB(_spinButtonR, _sliderR, value => R = value);
+			SubscribeRGB(_spinButtonG, _sliderG, value => G = value);
+			SubscribeRGB(_spinButtonB, _sliderB, value => B = value);
+			SubscribeRGB(_spinButtonA, _sliderA, value => A = value);
 
 			SubscribeHSV(_spinButtonH, _sliderH);
 			SubscribeHSV(_spinButtonS, _sliderS);
 			SubscribeHSV(_spinButtonV, _sliderV);
+
+			_textFieldHex.Tag = false;
+			_textFieldHex.TextChangedByUser += TextFieldHexTextChangedByUser;
+			_textFieldHex.InputFilter = s =>
+			{
+				if (s == null || s.Length > 8)
+				{
+					return null;
+				}
+
+				for(var i = 0; i < s.Length; ++i)
+				{
+					if (HexChars.IndexOf(s[i]) == -1)
+					{
+						return null;
+					}
+				}
+
+				return s.ToUpper();
+			};
 
 			// Set default value
 			_imageColor.TextureRegion = DefaultAssets.WhiteRegion;
@@ -109,11 +123,37 @@ namespace Myra.Graphics2D.UI.ColorPicker
 			OnColorChanged();
 		}
 
-		private void SubscribeSpinButton(SpinButton spinButton, Action<byte> valueSetter)
+		private void TextFieldHexTextChangedByUser(object sender, EventArgs e)
+		{
+			if (string.IsNullOrEmpty(_textFieldHex.Text))
+			{
+				return;
+			}
+
+			var s = "#" + _textFieldHex.Text;
+
+			var color = s.FromName();
+			if (color == null)
+			{
+				return;
+			}
+
+			try
+			{
+				_textFieldHex.Tag = true;
+				Color = color.Value;
+			}
+			finally
+			{
+				_textFieldHex.Tag = false;
+			}
+		}
+
+		private void SubscribeRGB(SpinButton spinButton, Slider slider, Action<byte> valueSetter)
 		{
 			spinButton.Tag = false;
 
-			spinButton.ValueChanged += (s, a) =>
+			spinButton.ValueChangedByUser += (s, a) =>
 			{
 				if (spinButton.Value == null)
 				{
@@ -131,13 +171,10 @@ namespace Myra.Graphics2D.UI.ColorPicker
 					spinButton.Tag = false;
 				}
 			};
-		}
 
-		private void SubscribeSlider(Slider slider, Action<byte> valueSetter)
-		{
 			slider.Tag = false;
 
-			slider.ValueChanged += (s, a) =>
+			slider.ValueChangedByUser += (s, a) =>
 			{
 				try
 				{
@@ -157,7 +194,7 @@ namespace Myra.Graphics2D.UI.ColorPicker
 			spinButton.Tag = false;
 			slider.Tag = false;
 
-			spinButton.ValueChanged += (s, a) =>
+			spinButton.ValueChangedByUser += (s, a) =>
 			{
 				if (spinButton.Value == null)
 				{
@@ -187,7 +224,7 @@ namespace Myra.Graphics2D.UI.ColorPicker
 				}
 			};
 
-			slider.ValueChanged += (s, a) =>
+			slider.ValueChangedByUser += (s, a) =>
 			{
 				try
 				{
