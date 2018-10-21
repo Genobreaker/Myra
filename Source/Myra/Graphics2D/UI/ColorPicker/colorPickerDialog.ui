@@ -3,7 +3,7 @@
   "$type": "Myra.Graphics2D.UI.Project, Myra",
   "ExportOptions": {
     "$type": "Myra.Graphics2D.UI.ExportOptions, Myra",
-    "Namespace": "Myra.Graphics.UI.ColorPicker",
+    "Namespace": "Myra.Graphics2D.UI.ColorPicker",
     "Class": "ColorPickerDialog",
     "OutputPath": "D:\\Projects\\Hebron\\Myra\\Source\\Myra\\Graphics2D\\UI\\ColorPicker"
   },
@@ -149,7 +149,7 @@
                   "$id": "25",
                   "$type": "Myra.Graphics2D.UI.Grid+Proportion, Myra",
                   "Type": 3,
-                  "Value": 40.0
+                  "Value": 50.0
                 },
                 {
                   "$id": "26",
@@ -361,7 +361,7 @@
                   "$id": "52",
                   "$type": "Myra.Graphics2D.UI.Grid+Proportion, Myra",
                   "Type": 3,
-                  "Value": 40.0
+                  "Value": 50.0
                 },
                 {
                   "$id": "53",
@@ -623,7 +623,8 @@
               ],
               "GridSelectionMode": 3,
               "Widgets": [],
-              "HeightHint": 70,
+              "Id": "_gridUserColors",
+              "HeightHint": 100,
               "HorizontalAlignment": 3,
               "VerticalAlignment": 3
             },
