@@ -408,28 +408,14 @@ namespace Myra.Editor.UI
 								{
 									return;
 								}
+
+								image.Color = dlg.Color;
+								record.SetValue(_object, dlg.Color);
+
+								FireChanged(propertyType.Name);
 							};
 
 							dlg.ShowModal(Desktop);
-/*							var h = ColorChangeHandler;
-							if (h != null)
-							{
-								var newColor = h(image.Color);
-								if (!newColor.HasValue) return;
-
-								image.Color = newColor.Value;
-
-								if (isColor)
-								{
-									record.SetValue(_object, newColor.Value);
-								}
-								else
-								{
-									record.SetValue(_object, newColor);
-								}
-
-								FireChanged(propertyType.Name);
-							}*/
 						};
 					}
 					else
