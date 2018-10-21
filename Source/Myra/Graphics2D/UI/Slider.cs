@@ -119,10 +119,65 @@ namespace Myra.Graphics2D.UI
 			Maximum = 100;
 		}
 
-		public override void OnMouseMoved(Point position)
+		private void WidgetOnUp(object sender, EventArgs eventArgs)
 		{
-			base.OnMouseMoved(position);
+			_mousePos = null;
+		}
 
+		private void WidgetOnDown(object sender, EventArgs eventArgs)
+		{
+			_mousePos = GetMousePos();
+		}
+
+		private int GetMousePos()
+		{
+			return Orientation == Orientation.Horizontal ? Desktop.MousePosition.X : Desktop.MousePosition.Y;
+		}
+
+		public void ApplySliderStyle(SliderStyle style)
+		{
+			ApplyWidgetStyle(style);
+
+			if (style.KnobStyle != null)
+			{
+				Widget.ApplyButtonStyle(style.KnobStyle);
+			}
+		}
+
+		private void SyncHintWithValue()
+		{
+			Hint = (int)(MaxHint * (_value / Maximum));
+		}
+
+		public override void Arrange()
+		{
+			base.Arrange();
+
+			SyncHintWithValue();
+		}
+
+		public override void OnDesktopChanging()
+		{
+			base.OnDesktopChanging();
+
+			if (Desktop != null)
+			{
+				Desktop.MouseMoved -= DesktopMouseMoved;
+			}
+		}
+
+		public override void OnDesktopChanged()
+		{
+			base.OnDesktopChanged();
+
+			if (Desktop != null)
+			{
+				Desktop.MouseMoved += DesktopMouseMoved;
+			}
+		}
+
+		private void DesktopMouseMoved(object sender, GenericEventArgs<Point> e)
+		{
 			if (_mousePos == null)
 			{
 				return;
@@ -181,43 +236,6 @@ namespace Myra.Graphics2D.UI
 			}
 
 			_mousePos = mousePos;
-		}
-
-		private void WidgetOnUp(object sender, EventArgs eventArgs)
-		{
-			_mousePos = null;
-		}
-
-		private void WidgetOnDown(object sender, EventArgs eventArgs)
-		{
-			_mousePos = GetMousePos();
-		}
-
-		private int GetMousePos()
-		{
-			return Orientation == Orientation.Horizontal ? Desktop.MousePosition.X : Desktop.MousePosition.Y;
-		}
-
-		public void ApplySliderStyle(SliderStyle style)
-		{
-			ApplyWidgetStyle(style);
-
-			if (style.KnobStyle != null)
-			{
-				Widget.ApplyButtonStyle(style.KnobStyle);
-			}
-		}
-
-		private void SyncHintWithValue()
-		{
-			Hint = (int)(MaxHint * (_value / Maximum));
-		}
-
-		public override void Arrange()
-		{
-			base.Arrange();
-
-			SyncHintWithValue();
 		}
 	}
 }
