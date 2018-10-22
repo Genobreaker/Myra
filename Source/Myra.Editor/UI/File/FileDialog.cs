@@ -483,14 +483,14 @@ namespace Myra.Editor.UI.File
 
 				dlg.Closed += (s, a) =>
 				{
-					if (dlg.ModalResult == (int) DefaultModalResult.Cancel)
+					if (!dlg.Result)
 					{
 						return;
 					}
 
 					FileName = fileName;
 
-					ModalResult = (int) DefaultModalResult.Ok;
+					Result = true;
 					Close();
 				};
 
@@ -500,7 +500,7 @@ namespace Myra.Editor.UI.File
 			{
 				FileName = fileName;
 
-				ModalResult = (int)DefaultModalResult.Ok;
+				Result = true;
 				Close();
 			}
 

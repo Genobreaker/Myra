@@ -6,72 +6,24 @@ namespace Myra.Graphics2D.UI.ColorPicker
 {
 	public partial class ColorPickerDialog : Dialog
 	{
-		public class UserColorsWrapper
-		{
-			private readonly ColorPickerDialog _dialog;
-
-			public int Length { get; private set; }
-
-			public Color this[int index]
-			{
-				get
-				{
-					if (index < 0 || index >= Length)
-					{
-						throw new ArgumentOutOfRangeException("index");
-					}
-
-					return _dialog.GetUserColor(index);
-				}
-
-				set
-				{
-					if (index < 0 || index >= Length)
-					{
-						throw new ArgumentOutOfRangeException("index");
-					}
-
-					_dialog.SetUserColor(index, value);
-				}
-			}
-
-			public UserColorsWrapper(ColorPickerDialog dialog, int length)
-			{
-				if (dialog == null)
-				{
-					throw new ArgumentNullException("dialog");
-				}
-
-				if (length <= 0)
-				{
-					throw new ArgumentOutOfRangeException("length");
-				}
-
-				_dialog = dialog;
-				Length = length;
-			}
-
-		}
-
 		private const string HexChars = "1234567890ABCDEFabcdef";
-		private static readonly Color[] DefaultUserColors = new []
+		public static readonly Color[] UserColors = new []
 		{
 			Color.Red,
+			Color.Green,
 			Color.Blue,
 			Color.Cyan,
 			Color.White,
 			Color.Black,
-			Color.Green,
 			Color.HotPink,
 			Color.Indigo,
-			Color.Honeydew,
+			Color.Orange,
 			Color.LightBlue,
 			Color.Olive,
-			Color.OldLace
+			Color.SkyBlue
 		};
 
 		private bool _suppressHSV = false;
-		private readonly UserColorsWrapper _userColors;
 
 		public Color Color
 		{
@@ -145,14 +97,6 @@ namespace Myra.Graphics2D.UI.ColorPicker
 			}
 		}
 
-		public UserColorsWrapper UserColors
-		{
-			get
-			{
-				return _userColors;
-			}
-		}
-
 		private int? SelectedUserColorIndex
 		{
 			get
@@ -194,11 +138,9 @@ namespace Myra.Graphics2D.UI.ColorPicker
 				}
 			}
 
-			_userColors = new UserColorsWrapper(this, _gridUserColors.Widgets.Count);
-
-			for (var i = 0; i < DefaultUserColors.Length; ++i)
+			for (var i = 0; i < UserColors.Length; ++i)
 			{
-				UserColors[i] = DefaultUserColors[i];
+				SetUserColor(i, UserColors[i]);
 			}
 
 			_gridUserColors.SelectedIndexChanged += GridUserColorsSelectedIndexChanged;
@@ -247,7 +189,7 @@ namespace Myra.Graphics2D.UI.ColorPicker
 			var index = SelectedUserColorIndex;
 			if (index != null)
 			{
-				UserColors[index.Value] = Color;
+				SetUserColor(index.Value, Color);
 			}
 		}
 
@@ -258,7 +200,7 @@ namespace Myra.Graphics2D.UI.ColorPicker
 			var index = SelectedUserColorIndex;
 			if (index != null)
 			{
-				Color = UserColors[index.Value];
+				Color = GetUserColor(index.Value);
 			}
 		}
 
@@ -484,6 +426,16 @@ namespace Myra.Graphics2D.UI.ColorPicker
 			if (!(bool)_sliderV.Tag)
 			{
 				_sliderV.Value = hsv.V;
+			}
+		}
+
+		public override void Close()
+		{
+			base.Close();
+
+			for (var i = 0; i < UserColors.Length; ++i)
+			{
+				UserColors[i] = GetUserColor(i);
 			}
 		}
 	}

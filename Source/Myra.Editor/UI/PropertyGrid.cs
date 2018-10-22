@@ -404,7 +404,7 @@ namespace Myra.Editor.UI
 
 							dlg.Closed += (s, a) =>
 							{
-								if (dlg.ModalResult != (int)Window.DefaultModalResult.Ok)
+								if (!dlg.Result)
 								{
 									return;
 								}
