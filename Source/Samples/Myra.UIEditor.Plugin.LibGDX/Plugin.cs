@@ -21,7 +21,7 @@ namespace Myra.UIEditor.Plugin.LibGDX
 			var texture = colorBuffer.CreateTexture2D();
 
 			// Load ui text atlas
-			var textureAtlas = TextureRegionAtlas.Load(assetResolver.ReadAsString("ui_stylesheet_atlas.atlas"),
+			var textureAtlas = TextureRegionAtlas.FromGDX(assetResolver.ReadAsString("ui_stylesheet_atlas.atlas"),
 				s => texture);
 
 			// Load ui font(s)

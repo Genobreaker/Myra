@@ -5,6 +5,7 @@ using Myra.Graphics2D.TextureAtlases;
 using Myra.Graphics2D.UI;
 using Myra.Graphics2D.UI.Styles;
 using Myra.Utility;
+using System.IO;
 
 namespace Myra.Samples.CustomUIStylesheet
 {
@@ -39,14 +40,13 @@ namespace Myra.Samples.CustomUIStylesheet
 			var assetResolver = new ResourceAssetResolver(GetType().Assembly, "Myra.Samples.CustomUIStylesheet.Resources.");
 
 			// Load image containing font & ui spritesheet
-			var colorBuffer = ColorBuffer.FromStream(assetResolver.Open("ui_stylesheet_image.png"));
+			var colorBuffer = ColorBuffer.FromStream(assetResolver.Open("ui_stylesheet_atlas.png"));
 			colorBuffer.Process(true);
 
 			var texture = colorBuffer.CreateTexture2D();
 
 			// Load ui text atlas
-			var textureAtlas = TextureRegionAtlas.Load(assetResolver.ReadAsString("ui_stylesheet_atlas.atlas"), 
-				s => texture);
+			var textureAtlas = TextureRegionAtlas.FromJson(assetResolver.ReadAsString("ui_stylesheet_atlas.json"), texture);
 
 			// Load ui font(s)
 			var font = SpriteFontHelper.LoadFromFnt(assetResolver.ReadAsString("ui_font.fnt"),

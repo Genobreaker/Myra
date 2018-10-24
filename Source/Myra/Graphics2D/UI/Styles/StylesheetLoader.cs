@@ -10,6 +10,7 @@ namespace Myra.Graphics2D.UI.Styles
 {
 	internal class StylesheetLoader
 	{
+		public const string TypeName = "type";
 		public const string ColorsName = "colors";
 		public const string TextBlockName = "textBlock";
 		public const string TextFieldName = "textField";
@@ -33,6 +34,8 @@ namespace Myra.Graphics2D.UI.Styles
 		public const string WindowName = "window";
 		public const string LeftName = "left";
 		public const string RightName = "right";
+		public const string WidthName = "width";
+		public const string HeightName = "height";
 		public const string TopName = "top";
 		public const string BottomName = "bottom";
 		public const string WidthHintName = "widthHint";
@@ -46,6 +49,7 @@ namespace Myra.Graphics2D.UI.Styles
 		public const string OverBorderName = "overBorder";
 		public const string DisabledBorderName = "disabledBorder";
 		public const string FocusedBorderName = "focusedBorder";
+		public const string BoundsName = "bounds";
 		public const string PaddingName = "padding";
 		public const string FontName = "font";
 		public const string MessageFontName = "font";
