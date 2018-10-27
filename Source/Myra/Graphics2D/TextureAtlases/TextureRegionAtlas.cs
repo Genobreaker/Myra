@@ -56,8 +56,8 @@ namespace Myra.Graphics2D.TextureAtlases
 
 				var jBounds = new JObject
 				{
-					[StylesheetLoader.LeftName] = region.Bounds.Left,
-					[StylesheetLoader.TopName] = region.Bounds.Top,
+					[StylesheetLoader.LeftName] = region.Bounds.X,
+					[StylesheetLoader.TopName] = region.Bounds.Y,
 					[StylesheetLoader.WidthName] = region.Bounds.Width,
 					[StylesheetLoader.HeightName] = region.Bounds.Height
 				};

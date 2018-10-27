@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using MonoGdx.Utils;
 using Myra.Graphics2D;
+using Myra.Utility;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,18 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 
 		private class StyleInfo
 		{
-			public string Name { get; set; }
 			public Dictionary<string, string> PropertyConversion { get; set; }
 			public bool HorizontalAndVertical { get; set; }
 		}
+
+		private static readonly string[] IgnoreVariants = new[]
+		{
+			"default",
+			"default-horizontal",
+			"default-vertical",
+			"radio",
+			"toggle"
+		};
 
 		private static readonly Dictionary<string, StyleInfo> _styles = new Dictionary<string, StyleInfo>
 		{
@@ -30,14 +39,13 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				"com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle",
 				new StyleInfo
 				{
-					Name = "checkBox",
 					PropertyConversion = new Dictionary<string, string>
 					{
-						{ "checkboxOn", "image/imagePressed" },
-						{ "checkboxOff", "image/image" },
-						{ "font", "label/font" },
-						{ "fontColor", "label/textColor" },
-						{ "disabledFontColor", "label/disabledTextColor" },
+						{ "checkboxOn", "checkBox/image/pressedImage" },
+						{ "checkboxOff", "checkBox/image/image" },
+						{ "font", "checkBox/label/font" },
+						{ "fontColor", "checkBox/label/textColor" },
+						{ "disabledFontColor", "checkBox/label/disabledTextColor" },
 					}
 				}
 			},
@@ -45,15 +53,14 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				"com.kotcrab.vis.ui.widget.VisCheckBox$VisCheckBoxStyle",
 				new StyleInfo
 				{
-					Name = "checkBox",
 					PropertyConversion = new Dictionary<string, string>
 					{
-						{ "checkBackground", "background" },
-						{ "checkBackgroundOver", "overBackground" },
-						{ "tick", "image/imagePressed" },
-						{ "font", "label/font" },
-						{ "fontColor", "label/textColor" },
-						{ "disabledFontColor", "label/disabledTextColor" },
+						{ "checkBackground", "checkBox/image/background" },
+						{ "checkBackgroundOver", "checkBox/image/overBackground" },
+						{ "tick", "checkBox/image/pressedImage" },
+						{ "font", "checkBox/label/font" },
+						{ "fontColor", "checkBox/label/textColor" },
+						{ "disabledFontColor", "checkBox/label/disabledTextColor" },
 					}
 				}
 			},
@@ -61,13 +68,12 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				"com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle|com.kotcrab.vis.ui.widget.VisImageButton$VisImageButtonStyle",
 				new StyleInfo
 				{
-					Name = "imageButton",
 					PropertyConversion = new Dictionary<string, string>
 					{
-						{ "up", "background" },
-						{ "down", "pressedBackground" },
-						{ "over", "overBackground" },
-						{ "imageUp", "image/image" },
+						{ "up", "imageButton/background" },
+						{ "down", "imageButton/pressedBackground" },
+						{ "over", "imageButton/overBackground" },
+						{ "imageUp", "imageButton/image/image" },
 					}
 				}
 			},
@@ -75,15 +81,14 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				"com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle|com.kotcrab.vis.ui.widget.VisImageTextButton$VisImageTextButtonStyle",
 				new StyleInfo
 				{
-					Name = "button",
 					PropertyConversion = new Dictionary<string, string>
 					{
-						{ "up", "background" },
-						{ "down", "pressedBackground" },
-						{ "font", "label/font" },
-						{ "fontColor", "label/textColor" },
-						{ "disabledFontColor", "label/disabledTextColor" },
-						{ "downFontColor", "label/downTextColor" },
+						{ "up", "button/background" },
+						{ "down", "button/pressedBackground" },
+						{ "font", "button/label/font" },
+						{ "fontColor", "button/label/textColor" },
+						{ "disabledFontColor", "button/label/disabledTextColor" },
+						{ "downFontColor", "button/label/downTextColor" },
 					}
 				}
 			},
@@ -91,14 +96,13 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				"com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle",
 				new StyleInfo
 				{
-					Name = "textBlock",
 					PropertyConversion = new Dictionary<string, string>
 					{
-						{ "up", "background" },
-						{ "down", "pressedBackground" },
-						{ "font", "font" },
-						{ "fontColor", "textColor" },
-						{ "disabledFontColor", "disabledTextColor" },
+						{ "up", "textBlock/background" },
+						{ "down", "textBlock/pressedBackground" },
+						{ "font", "textBlock/font" },
+						{ "fontColor", "textBlock/textColor" },
+						{ "disabledFontColor", "textBlock/disabledTextColor" },
 					}
 				}
 			},
@@ -106,13 +110,12 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				"com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle",
 				new StyleInfo
 				{
-					Name = "listBox",
 					PropertyConversion = new Dictionary<string, string>
 					{
-						{ "font", "listBoxItem/label/font" },
-						{ "fontColor", "listBoxItem/label/textColor" },
-						{ "disabledFontColor", "listBoxItem/label/disabledTextColor" },
-						{ "selection", "listBoxItem/pressedBackground" }
+						{ "font", "listBox/listBoxItem/label/font" },
+						{ "fontColor", "listBox/listBoxItem/label/textColor" },
+						{ "disabledFontColor", "listBox/listBoxItem/label/disabledTextColor" },
+						{ "selection", "listBox/listBoxItem/pressedBackground" }
 					}
 				}
 			},
@@ -120,11 +123,10 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				"com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle",
 				new StyleInfo
 				{
-					Name = "listBox",
 					PropertyConversion = new Dictionary<string, string>
 					{
-						{ "background", "background" },
-						{ "knobBefore", "filled" }
+						{ "background", "ProgressBar/background" },
+						{ "knobBefore", "ProgressBar/filled" }
 					},
 					HorizontalAndVertical = true
 				}
@@ -133,14 +135,13 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				"com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle",
 				new StyleInfo
 				{
-					Name = "scrollArea",
 					PropertyConversion = new Dictionary<string, string>
 					{
-						{ "background", "background" },
-						{ "hScroll", "horizontalScroll" },
-						{ "hScrollKnob", "horizontalScrollKnob" },
-						{ "vScroll", "verticalScroll" },
-						{ "vScrollKnob", "verticalScrollKnob" }
+						{ "background", "scrollArea/background" },
+						{ "hScroll", "scrollArea/horizontalScroll" },
+						{ "hScrollKnob", "scrollArea/horizontalScrollKnob" },
+						{ "vScroll", "scrollArea/verticalScroll" },
+						{ "vScrollKnob", "scrollArea/verticalScrollKnob" }
 					}
 				}
 			},
@@ -148,16 +149,15 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				"com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle",
 				new StyleInfo
 				{
-					Name = "comboBox",
 					PropertyConversion = new Dictionary<string, string>
 					{
-						{ "background", "background" },
-						{ "font", "label/font" },
-						{ "fontColor", "label/textColor" },
-						{ "disabledFontColor", "label/disabledTextColor" },
-						{ "listStyle/background", "itemsContainer/background" },
-						{ "listStyle/font", "comboBoxItem/label/font" },
-						{ "listStyle/fontColor", "comboBoxItem/label/textColor" },
+						{ "background", "comboBox/background" },
+						{ "font", "comboBox/label/font" },
+						{ "fontColor", "comboBox/label/textColor" },
+						{ "disabledFontColor", "comboBox/label/disabledTextColor" },
+						{ "listStyle/background", "comboBox/itemsContainer/background" },
+						{ "listStyle/font", "comboBox/comboBoxItem/label/font" },
+						{ "listStyle/fontColor", "comboBox/comboBoxItem/label/textColor" },
 					}
 				}
 			},
@@ -165,27 +165,25 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				"com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle",
 				new StyleInfo
 				{
-					Name = "Slider",
 					PropertyConversion = new Dictionary<string, string>
 					{
-						{ "background", "background" },
-						{ "knob", "knob/image/image" },
-						{ "knobOver", "knob/image/overImage" },
-						{ "knobDown", "knob/image/pressedImage" },
-						{ "disabledKnob", "knob/image/disabledImage" },
+						{ "background", "Slider/background" },
+						{ "knob", "Slider/knob/image/image" },
+						{ "knobOver", "Slider/knob/image/overImage" },
+						{ "knobDown", "Slider/knob/image/pressedImage" },
+						{ "disabledKnob", "Slider/knob/image/disabledImage" },
 					},
 					HorizontalAndVertical = true
 				}
 			},
 			{
-				"com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle",
+				"com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle|com.kotcrab.vis.ui.widget.VisSplitPane$VisSplitPaneStyle",
 				new StyleInfo
 				{
-					Name = "SplitPane",
 					PropertyConversion = new Dictionary<string, string>
 					{
-						{ "handle", "handle/background" },
-						{ "handleOver", "handle/overBackground" },
+						{ "handle", "SplitPane/handle/background" },
+						{ "handleOver", "SplitPane/handle/overBackground" },
 					},
 					HorizontalAndVertical = true
 				}
@@ -194,16 +192,15 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				"com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle|com.kotcrab.vis.ui.widget.VisTextButton$VisTextButtonStyle",
 				new StyleInfo
 				{
-					Name = "textButton",
 					PropertyConversion = new Dictionary<string, string>
 					{
-						{ "up", "background" },
-						{ "down", "pressedBackground" },
-						{ "over", "overBackground" },
-						{ "font", "label/font" },
-						{ "fontColor", "label/textColor" },
-						{ "downFontColor", "label/downTextColor" },
-						{ "disabledFontColor", "label/disabledTextColor" },
+						{ "up", "textButton/background" },
+						{ "down", "textButton/pressedBackground" },
+						{ "over", "textButton/overBackground" },
+						{ "font", "textButton/label/font" },
+						{ "fontColor", "textButton/label/textColor" },
+						{ "downFontColor", "textButton/label/downTextColor" },
+						{ "disabledFontColor", "textButton/label/disabledTextColor" },
 					}
 				}
 			},
@@ -211,17 +208,16 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				"com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle|com.kotcrab.vis.ui.widget.VisTextField$VisTextFieldStyle",
 				new StyleInfo
 				{
-					Name = "textField",
 					PropertyConversion = new Dictionary<string, string>
 					{
-						{ "background", "background" },
-						{ "font", "font" },
-						{ "fontColor", "textColor" },
-						{ "disabledFontColor", "disabledTextColor" },
-						{ "cursor", "cursor" },
-						{ "selection", "selection" },
-						{ "focusedFontColor", "focusedTextColor" },
-						{ "focusedBackground", "focusedBackground" },
+						{ "background", "textField/background" },
+						{ "font", "textField/font" },
+						{ "fontColor", "textField/textColor" },
+						{ "disabledFontColor", "textField/disabledTextColor" },
+						{ "cursor", "textField/cursor" },
+						{ "selection", "textField/selection" },
+						{ "focusedFontColor", "textField/focusedTextColor" },
+						{ "focusedBackground", "textField/focusedBackground" },
 					}
 				}
 			},
@@ -229,13 +225,12 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				"com.badlogic.gdx.scenes.scene2d.ui.Tree$TreeStyle",
 				new StyleInfo
 				{
-					Name = "tree",
 					PropertyConversion = new Dictionary<string, string>
 					{
-						{ "plus", "mark/image/image" },
-						{ "minus", "mark/image/pressedImage" },
-						{ "selection", "selectionBackground" },
-						{ "over", "selectionHoverBackground" },
+						{ "plus", "tree/mark/image/image" },
+						{ "minus", "tree/mark/image/pressedImage" },
+						{ "selection", "tree/selectionBackground" },
+						{ "over", "tree/selectionHoverBackground" },
 					}
 				}
 			},
@@ -243,13 +238,12 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				"com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle",
 				new StyleInfo
 				{
-					Name = "window",
 					PropertyConversion = new Dictionary<string, string>
 					{
-						{ "background", "background" },
-						{ "titleFont", "title/font" },
-						{ "titleFontColor", "title/textColor" },
-						{ "over", "selectionHoverBackground" },
+						{ "background", "window/background" },
+						{ "titleFont", "window/title/font" },
+						{ "titleFontColor", "window/title/textColor" },
+						{ "over", "window/selectionHoverBackground" },
 					}
 				}
 			},
@@ -257,13 +251,25 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				"com.kotcrab.vis.ui.widget.Menu$MenuStyle",
 				new StyleInfo
 				{
-					Name = "window",
 					PropertyConversion = new Dictionary<string, string>
 					{
-						{ "background", "background" },
-						{ "titleFont", "title/font" },
-						{ "titleFontColor", "title/textColor" },
-						{ "over", "selectionHoverBackground" },
+						{ "background", "Menu/background" },
+						{ "titleFont", "Menu/title/font" },
+						{ "titleFontColor", "Menu/title/textColor" },
+						{ "over", "Menu/selectionHoverBackground" },
+					},
+					HorizontalAndVertical = true
+				}
+			},
+			{
+				"com.kotcrab.vis.ui.widget.spinner.Spinner$SpinnerStyle",
+				new StyleInfo
+				{
+					PropertyConversion = new Dictionary<string, string>
+					{
+						{ "background", "spinButton/background" },
+						{ "up", "spinButton/upButton/image/image" },
+						{ "down", "spinButton/downButton/image/image" },
 					}
 				}
 			},
@@ -277,6 +283,60 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				(float)inputData["g"],
 				(float)inputData["b"],
 				(float)inputData["a"]);
+		}
+
+		private static void ParseInto(JObject outputObj, string variantName, StyleInfo info, Dictionary<string, object> inputProperties, string itemName, string inputPrefix = "", string outputPrefix = "")
+		{
+			foreach (var pair in inputProperties)
+			{
+				var asDict = pair.Value as Dictionary<string, object>;
+				if (asDict != null)
+				{
+					var p = inputPrefix;
+					p += pair.Key + "/";
+
+					ParseInto(outputObj, variantName, info, asDict, itemName, p);
+				}
+				else
+				{
+					string propName;
+					if (info.PropertyConversion.TryGetValue(inputPrefix + pair.Key, out propName))
+					{
+						propName = outputPrefix + propName;
+
+						if (!string.IsNullOrEmpty(variantName))
+						{
+							var idx = propName.IndexOf("/");
+
+							if (idx != -1)
+							{
+								propName = propName.Substring(0, idx) + "/variants/" + variantName + propName.Substring(idx);
+							}
+						}
+
+						var parts = propName.Split('/').ToList();
+
+						var outputObj2 = outputObj;
+						while (parts.Count > 1)
+						{
+							propName = parts[0];
+							if (outputObj2[propName] == null)
+							{
+								outputObj2[propName] = new JObject();
+							}
+
+							outputObj2 = (JObject)outputObj2[propName];
+							parts.RemoveAt(0);
+						}
+
+						outputObj2[parts[0]] = (string)pair.Value;
+					}
+					else
+					{
+						Console.WriteLine("WARNING: Property '{0}' of item '{1}' wasn't processed.", inputPrefix + pair.Key, itemName);
+					}
+				}
+			}
 		}
 
 		static void Main(string[] args)
@@ -342,49 +402,55 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 
 				var output = new JObject();
 
+				foreach(var pair in colors)
+				{
+					if (output["colors"] == null)
+					{
+						output["colors"] = new JObject();
+					}
+
+					output["colors"][pair.Key] = pair.Value.ToHexString();
+				}
+
 				foreach (var pair in _styles)
 				{
 					var parts = pair.Key.Split('|');
-					if (input.TryGetValue(parts[parts.Length - 1], out obj))
+					var itemName = parts[parts.Length - 1];
+					if (input.TryGetValue(itemName, out obj))
 					{
-						var outputObj = new JObject();
 						var inputVariants = (Dictionary<string, object>)obj;
 
-						foreach (var pair2 in inputVariants)
+						if (inputVariants.TryGetValue("default", out obj))
 						{
-							if (pair2.Key == "default")
+							if (!pair.Value.HorizontalAndVertical)
 							{
-								var inputProperties = (Dictionary<string, object>)pair2.Value;
-								foreach (var pair3 in inputProperties)
-								{
-									string propName;
-									if (pair.Value.PropertyConversion.TryGetValue(pair3.Key, out propName))
-									{
-										var parts2 = propName.Split('/').ToList();
-
-										var outputObj2 = outputObj;
-										while (parts2.Count > 1)
-										{
-											if (outputObj2[parts2[0]] == null)
-											{
-												outputObj2[parts2[0]] = new JObject();
-											}
-
-											outputObj2 = (JObject)outputObj2[parts2[0]];
-											parts2.RemoveAt(0);
-											propName = string.Join("/", parts2);
-										}
-
-										outputObj2[propName] = (string)pair3.Value;
-									} else
-									{
-										Console.WriteLine("WARNING: Property '{0}' of item '{1}' wasn't processed.", pair3.Key, parts[parts.Length - 1]);
-									}
-								}
+								ParseInto(output, string.Empty, pair.Value, (Dictionary<string, object>)obj, itemName, string.Empty, string.Empty);
+							} else
+							{
+								ParseInto(output, string.Empty, pair.Value, (Dictionary<string, object>)obj, itemName, string.Empty, "horizontal");
+								ParseInto(output, string.Empty, pair.Value, (Dictionary<string, object>)obj, itemName, string.Empty, "vertical");
 							}
 						}
 
-						output[pair.Value.Name] = outputObj;
+						if (inputVariants.TryGetValue("default-horizontal", out obj))
+						{
+							ParseInto(output, string.Empty, pair.Value, (Dictionary<string, object>)obj, itemName, string.Empty, "horizontal");
+						}
+
+						if (inputVariants.TryGetValue("default-vertical", out obj))
+						{
+							ParseInto(output, string.Empty, pair.Value, (Dictionary<string, object>)obj, itemName, string.Empty, "vertical");
+						}
+
+						foreach (var pair2 in inputVariants)
+						{
+							if (IgnoreVariants.Contains(pair2.Key))
+							{
+								continue;
+							}
+
+							ParseInto(output, pair2.Key, pair.Value, (Dictionary<string, object>)pair2.Value, itemName);
+						}
 					}
 				}
 
