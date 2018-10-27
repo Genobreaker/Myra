@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Myra.Attributes;
 using Myra.Editor.Utils;
-using Myra.Graphics2D.TextureAtlases;
+using Myra.Graphics2D;
 using Myra.Graphics2D.UI;
 using Myra.Graphics2D.UI.ColorPicker;
 using Myra.Graphics2D.UI.Styles;
@@ -373,8 +373,7 @@ namespace Myra.Editor.UI
 
 					var image = new Image
 					{
-						TextureRegion = DefaultAssets.WhiteRegion,
-						Color = color,
+						Drawable = new Drawable(DefaultAssets.WhiteRegion),
 						VerticalAlignment = VerticalAlignment.Center,
 						WidthHint = 32,
 						HeightHint = 16
@@ -399,7 +398,7 @@ namespace Myra.Editor.UI
 						{
 							var dlg = new ColorPickerDialog()
 							{
-								Color = image.Color
+								Color = image.Drawable.Color
 							};
 
 							dlg.Closed += (s, a) =>
@@ -409,7 +408,7 @@ namespace Myra.Editor.UI
 									return;
 								}
 
-								image.Color = dlg.Color;
+								image.Drawable.Color = dlg.Color;
 								record.SetValue(_object, dlg.Color);
 
 								FireChanged(propertyType.Name);
@@ -425,7 +424,7 @@ namespace Myra.Editor.UI
 
 					valueWidget = subGrid;
 				}
-				else if (propertyType.IsAssignableFrom(typeof(TextureRegion)))
+				else if (propertyType.IsAssignableFrom(typeof(Drawable)))
 				{
 				}
 				else if (propertyType.IsEnum)
@@ -648,7 +647,7 @@ namespace Myra.Editor.UI
 						}
 					}
 				}
-				else if (!(value is SpriteFont) && !(value is TextureRegion))
+				else if (!(value is SpriteFont) && !(value is Drawable))
 				{
 					// Subgrid
 					if (value != null)

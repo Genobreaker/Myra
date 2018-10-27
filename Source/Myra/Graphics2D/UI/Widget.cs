@@ -3,7 +3,6 @@ using System.ComponentModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Myra.Attributes;
-using Myra.Graphics2D.TextureAtlases;
 using Myra.Graphics2D.UI.Styles;
 using Myra.Utility;
 using Newtonsoft.Json;
@@ -388,52 +387,52 @@ namespace Myra.Graphics2D.UI
 		[HiddenInEditor]
 		[JsonIgnore]
 		[EditCategory("Appearance")]
-		public TextureRegion Background { get; set; }
+		public Drawable Background { get; set; }
 
 		[HiddenInEditor]
 		[JsonIgnore]
 		[EditCategory("Appearance")]
-		public TextureRegion OverBackground { get; set; }
+		public Drawable OverBackground { get; set; }
 
 		[HiddenInEditor]
 		[JsonIgnore]
 		[EditCategory("Appearance")]
-		public TextureRegion DisabledBackground { get; set; }
+		public Drawable DisabledBackground { get; set; }
 
 		[HiddenInEditor]
 		[JsonIgnore]
 		[EditCategory("Appearance")]
-		public TextureRegion FocusedBackground { get; set; }
+		public Drawable FocusedBackground { get; set; }
 
 		[HiddenInEditor]
 		[JsonIgnore]
 		[EditCategory("Appearance")]
-		public TextureRegion DisabledOverBackground { get; set; }
+		public Drawable DisabledOverBackground { get; set; }
 
 		[HiddenInEditor]
 		[JsonIgnore]
 		[EditCategory("Appearance")]
-		public TextureRegion OverrideBackground { get; set; }
+		public Drawable OverrideBackground { get; set; }
 
 		[HiddenInEditor]
 		[JsonIgnore]
 		[EditCategory("Appearance")]
-		public TextureRegion Border { get; set; }
+		public Drawable Border { get; set; }
 
 		[HiddenInEditor]
 		[JsonIgnore]
 		[EditCategory("Appearance")]
-		public TextureRegion OverBorder { get; set; }
+		public Drawable OverBorder { get; set; }
 
 		[HiddenInEditor]
 		[JsonIgnore]
 		[EditCategory("Appearance")]
-		public TextureRegion DisabledBorder { get; set; }
+		public Drawable DisabledBorder { get; set; }
 
 		[HiddenInEditor]
 		[JsonIgnore]
 		[EditCategory("Appearance")]
-		public TextureRegion FocusedBorder { get; set; }
+		public Drawable FocusedBorder { get; set; }
 
 		[EditCategory("Appearance")]
 		public bool ClipToBounds { get; set; }
@@ -590,7 +589,7 @@ namespace Myra.Graphics2D.UI
 			Enabled = true;
 		}
 
-		public virtual TextureRegion GetCurrentBackground()
+		public virtual Drawable GetCurrentBackground()
 		{
 			var result = Background;
 
@@ -617,7 +616,7 @@ namespace Myra.Graphics2D.UI
 			return result;
 		}
 
-		public virtual TextureRegion GetCurrentBorder()
+		public virtual Drawable GetCurrentBorder()
 		{
 			var result = Border;
 			if (!Enabled && DisabledBorder != null)

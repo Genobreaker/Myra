@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Myra.Attributes;
 using Myra.Graphics2D.Text;
-using Myra.Graphics2D.TextureAtlases;
 using Myra.Graphics2D.UI.Styles;
 using Myra.Utility;
 using Newtonsoft.Json;
@@ -91,12 +90,12 @@ namespace Myra.Graphics2D.UI
 		[HiddenInEditor]
 		[JsonIgnore]
 		[EditCategory("Appearance")]
-		public TextureRegion Cursor { get; set; }
+		public Drawable Cursor { get; set; }
 
 		[HiddenInEditor]
 		[JsonIgnore]
 		[EditCategory("Appearance")]
-		public TextureRegion Selection { get; set; }
+		public Drawable Selection { get; set; }
 
 		[EditCategory("Behavior")]
 		[DefaultValue(450)]
@@ -452,7 +451,7 @@ namespace Myra.Graphics2D.UI
 
 				context.Draw(Cursor, new Rectangle(x,
 					y,
-					Cursor.Bounds.Width,
+					Cursor.Size.X,
 					_formattedText.Font.LineSpacing));
 			}
 		}

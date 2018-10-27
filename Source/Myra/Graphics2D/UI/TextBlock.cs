@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Myra.Attributes;
 using Myra.Graphics2D.Text;
 using Myra.Graphics2D.UI.Styles;
-using Myra.Utility;
 using Newtonsoft.Json;
 
 namespace Myra.Graphics2D.UI

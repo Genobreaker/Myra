@@ -7,15 +7,15 @@ namespace Myra.Graphics2D.UI.Styles
 		public int? WidthHint { get; set; }
 		public int? HeightHint { get; set; }
 
-		public TextureRegion Background { get; set; }
-		public TextureRegion OverBackground { get; set; }
-		public TextureRegion DisabledBackground { get; set; }
-		public TextureRegion FocusedBackground { get; set; }
+		public Drawable Background { get; set; }
+		public Drawable OverBackground { get; set; }
+		public Drawable DisabledBackground { get; set; }
+		public Drawable FocusedBackground { get; set; }
 
-		public TextureRegion Border { get; set; }
-		public TextureRegion OverBorder { get; set; }
-		public TextureRegion DisabledBorder { get; set; }
-		public TextureRegion FocusedBorder { get; set; }
+		public Drawable Border { get; set; }
+		public Drawable OverBorder { get; set; }
+		public Drawable DisabledBorder { get; set; }
+		public Drawable FocusedBorder { get; set; }
 
 		public PaddingInfo Padding { get; set; }
 
