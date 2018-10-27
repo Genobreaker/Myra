@@ -122,6 +122,10 @@ namespace Myra.Graphics2D.UI
 
 			Widget.Widgets.Add(_textBlock);
 
+			PaddingLeft = 5;
+			PaddingRight = 5;
+			PaddingBottom = 2;
+
 			if (style != null)
 			{
 				ApplyMenuItemStyle(style);

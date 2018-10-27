@@ -78,6 +78,24 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				}
 			},
 			{
+				"com.kotcrab.vis.ui.widget.VisImageTextButton$VisImageTextButtonStyle/menu-bar",
+				new StyleInfo
+				{
+					PropertyConversion = new Dictionary<string, string>
+					{
+						{ "up", "Menu/menuItem/background" },
+						{ "down", "Menu/menuItem/pressedBackground" },
+						{ "over", "Menu/menuItem/overBackground" },
+						{ "disabled", "Menu/menuItem/disabledBackground" },
+						{ "font", "Menu/menuItem/label/font" },
+						{ "fontColor", "Menu/menuItem/label/textColor" },
+						{ "disabledFontColor", "Menu/menuItem/label/disabledTextColor" },
+						{ "downFontColor", "Menu/menuItem/label/downTextColor" },
+					},
+					HorizontalAndVertical = true
+				}
+			},
+			{
 				"com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle|com.kotcrab.vis.ui.widget.VisImageTextButton$VisImageTextButtonStyle",
 				new StyleInfo
 				{
@@ -273,6 +291,17 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 					}
 				}
 			},
+			{
+				"com.kotcrab.vis.ui.widget.Separator$SeparatorStyle/menu",
+				new StyleInfo
+				{
+					PropertyConversion = new Dictionary<string, string>
+					{
+						{ "background", "horizontalMenu/separator/image" },
+						{ "thickness", "horizontalMenu/separator/thickness" },
+					}
+				}
+			},
 		};
 
 		private static Color FromInputColor(object data)
@@ -329,7 +358,7 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 							parts.RemoveAt(0);
 						}
 
-						outputObj2[parts[0]] = (string)pair.Value;
+						outputObj2[parts[0]] = pair.Value.ToString();
 					}
 					else
 					{
@@ -416,40 +445,82 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				{
 					var parts = pair.Key.Split('|');
 					var itemName = parts[parts.Length - 1];
-					if (input.TryGetValue(itemName, out obj))
+
+					var parts2 = itemName.Split('/');
+
+					if (input.TryGetValue(parts2[0], out obj))
 					{
 						var inputVariants = (Dictionary<string, object>)obj;
 
-						if (inputVariants.TryGetValue("default", out obj))
+						if (parts2.Length > 1)
 						{
-							if (!pair.Value.HorizontalAndVertical)
+							if (inputVariants.TryGetValue(parts2[1], out obj))
 							{
-								ParseInto(output, string.Empty, pair.Value, (Dictionary<string, object>)obj, itemName, string.Empty, string.Empty);
-							} else
-							{
-								ParseInto(output, string.Empty, pair.Value, (Dictionary<string, object>)obj, itemName, string.Empty, "horizontal");
-								ParseInto(output, string.Empty, pair.Value, (Dictionary<string, object>)obj, itemName, string.Empty, "vertical");
+								var inputProps = (Dictionary<string, object>)obj;
+								if (!pair.Value.HorizontalAndVertical)
+								{
+									ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, string.Empty);
+								}
+								else
+								{
+									ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, "horizontal");
+									ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, "vertical");
+								}
 							}
 						}
-
-						if (inputVariants.TryGetValue("default-horizontal", out obj))
+						else
 						{
-							ParseInto(output, string.Empty, pair.Value, (Dictionary<string, object>)obj, itemName, string.Empty, "horizontal");
-						}
-
-						if (inputVariants.TryGetValue("default-vertical", out obj))
-						{
-							ParseInto(output, string.Empty, pair.Value, (Dictionary<string, object>)obj, itemName, string.Empty, "vertical");
-						}
-
-						foreach (var pair2 in inputVariants)
-						{
-							if (IgnoreVariants.Contains(pair2.Key))
+							if (inputVariants.TryGetValue("default", out obj))
 							{
-								continue;
+								var inputProps = (Dictionary<string, object>)obj;
+								if (!pair.Value.HorizontalAndVertical)
+								{
+									ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, string.Empty);
+								}
+								else
+								{
+									ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, "horizontal");
+									ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, "vertical");
+								}
 							}
 
-							ParseInto(output, pair2.Key, pair.Value, (Dictionary<string, object>)pair2.Value, itemName);
+							if (inputVariants.TryGetValue("default-horizontal", out obj))
+							{
+								var inputProps = (Dictionary<string, object>)obj;
+								ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, "horizontal");
+							}
+
+							if (inputVariants.TryGetValue("default-vertical", out obj))
+							{
+								var inputProps = (Dictionary<string, object>)obj;
+								ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, "vertical");
+							}
+
+							foreach (var pair2 in inputVariants)
+							{
+								if (parts2.Length > 1 && pair2.Key == parts2[1])
+								{
+									continue;
+								}
+
+								if (IgnoreVariants.Contains(pair2.Key))
+								{
+									continue;
+								}
+
+
+								var inputProps = (Dictionary<string, object>)pair2.Value;
+
+								if (!pair.Value.HorizontalAndVertical)
+								{
+									ParseInto(output, pair2.Key, pair.Value, inputProps, itemName, string.Empty, string.Empty);
+								}
+								else
+								{
+									ParseInto(output, pair2.Key, pair.Value, inputProps, itemName, string.Empty, "horizontal");
+									ParseInto(output, pair2.Key, pair.Value, inputProps, itemName, string.Empty, "vertical");
+								}
+							}
 						}
 					}
 				}
