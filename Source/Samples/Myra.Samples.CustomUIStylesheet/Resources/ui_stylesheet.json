@@ -1,260 +1,312 @@
 {
-  "colors": {
-    "white": "#FFFFFFFF",
-    "grey": "#AAAAAAFF"
-  },
-  "textureAtlas": "ui_stylesheet_atlas",
-  "textBlock": {
-    "font": "ui_font",
-    "disabledTextColor": "grey",
-    "textColor": "white"
-  },
-  "textField": {
-    "font": "ui_font",
-    "textColor": "white",
-    "disabledTextColor": "grey",
-    "selection": "selection",
-    "background": "textfield",
-    "cursor": "cursor",
-    "messageFont": "ui_font",
-    "messageTextColor": "grey"
-  },
-  "scrollArea": {
-    "background": "default-rect",
-    "horizontalScroll": "default-scroll",
-    "horizontalScrollKnob": "default-round-large",
-    "verticalScroll": "default-scroll",
-    "verticalScrollKnob": "default-round-large"
-  },
-  "button": {
-    "padding": {
-      "left": 5.0,
-      "right": 5.0
-    },
-    "background": "default-round",
-    "pressedBackground": "default-round-down",
-    "label": {
-      "font": "ui_font",
-      "textColor": "white",
-      "disabledTextColor": "grey"
-    }
-  },
-  "imageButton": {
-    "padding": {
-      "left": 5.0,
-      "right": 5.0
-    },
-    "background": "default-round",
-    "pressedBackground": "default-round-down"
-  },
-  "textButton": {
-    "padding": {
-      "left": 5.0,
-      "right": 5.0
-    },
-    "background": "default-round",
-    "pressedBackground": "default-round-down",
-    "label": {
-      "font": "ui_font",
-      "textColor": "white",
-      "disabledTextColor": "grey"
-    }
-  },
-  "checkBox": {
-    "label": {
-      "font": "ui_font",
-      "textColor": "white"
-    },
-    "image": {
-      "image": "check-off",
-      "pressedImage": "check-on"
-    }
-  },
-  "spinButton": {
-    "background": "textfield",
-    "upButton": {
-      "background": "default-round",
-      "pressedBackground": "default-round-down",
-      "image": {
-        "image": "tree-plus"
-      }
-    },
-    "downButton": {
-      "background": "default-round",
-      "pressedBackground": "default-round-down",
-      "image": {
-        "image": "tree-minus"
-      }
-    },
-    "textField": {
-      "font": "ui_font",
-      "textColor": "white",
-      "disabledTextColor": "grey",
-      "selection": "selection",
-      "cursor": "cursor",
-      "messageFont": "ui_font",
-      "messageTextColor": "grey"
-    }
-  },
-  "horizontalSlider": {
-    "background": "default-slider",
-    "knob": {
-      "image": {
-        "image": "default-slider-knob"
-      }
-    }
-  },
-  "verticalSlider": {
-    "background": "default-slider",
-    "knob": {
-      "image": {
-        "image": "default-slider-knob"
-      }
-    }
-  },
-  "horizontalProgressBar": {
-    "background": "default-round",
-    "filled": "default-round-down"
-  },
-  "verticalProgressBar": {
-    "background": "default-round",
-    "filled": "default-round-down"
-  },
-  "comboBox": {
-    "background": "default-select",
-    "label": {
-      "font": "ui_font",
-      "textColor": "white"
-    },
-    "itemsContainer": {
-      "background": "default-rect"
-    },
-    "comboBoxItem": {
-      "pressedBackground": "default-select-selection",
-      "label": {
-        "font": "ui_font",
-        "textColor": "white"
-      }
-    }
-  },
-  "listBox": {
-    "background": "default-rect",
-    "listBoxItem": {
-      "pressedBackground": "default-select-selection",
-      "padding": {
-        "left": 5.0,
-        "right": 5.0
-      },
-      "label": {
-        "font": "ui_font",
-        "textColor": "white",
-        "disabledTextColor": "grey"
-      },
-      "separator": {
-        "image": "default-round",
-        "thickness": 4,
-        "padding": {
-          "top": 2.0,
-          "bottom": 2.0
-        }
-      }
-    }
-  },
-  "grid": {
-    "rowSelectionBackground": "default-select-selection",
-    "rowSelectionBackgroundWithoutFocus": "default-select-selection"
-  },
-  "tree": {
-    "rowSelectionBackground": "default-select-selection",
-    "mark": {
-      "image": {
-        "image": "tree-plus",
-        "pressedImage": "tree-minus"
-      },
-      "label": {
-        "font": "ui_font",
-        "textColor": "white",
-        "disabledTextColor": "grey"
-      }
-    }
-  },
-  "horizontalSplitPane": {
-    "handle": {
-      "background": "default-splitpane"
-    }
-  },
-  "verticalSplitPane": {
-    "handle": {
-      "background": "default-splitpane-vertical"
-    }
-  },
-  "horizontalMenu": {
-    "background": "default-round",
-    "separator": {
-      "image": "default-round",
-      "thickness": 3
-    },
-    "menuItem": {
-      "pressedBackground": "default-round-down",
-      "openBackground": "default-round-down",
-      "padding": {
-        "left": 5.0,
-        "right": 5.0,
-        "bottom": 2.0
-      },
-      "label": {
-        "font": "ui_font",
-        "textColor": "white",
-        "disabledTextColor": "grey"
-      }
-    }
-  },
-  "verticalMenu": {
-    "background": "default-round",
-    "separator": {
-      "image": "default-round",
-      "thickness": 4,
-      "padding": {
-        "top": 2.0,
-        "bottom": 2.0
-      }
-    },
-    "menuItem": {
-      "pressedBackground": "default-round-down",
-      "iconWidth": 22,
-      "shortcutWidth": 22,
-      "padding": {
-        "left": 5.0,
-        "right": 5.0,
-        "top": 2.0,
-        "bottom": 2.0
-      },
-      "label": {
-        "font": "ui_font",
-        "textColor": "white",
-        "disabledTextColor": "grey"
-      }
-    }
-  },
-  "window": {
-    "background": "default-window",
-    "padding": {
-      "left": 2.0,
-      "right": 2.0
-    },
-    "title": {
-      "padding": {
-        "left": 5.0,
-        "right": 5.0
-      },
-      "font": "ui_font",
-      "textColor": "white"
-    },
-    "closeButton": {
-      "image": {
-        "image": "default-round",
-        "pressedImage": "default-round-down"
-      }
-    }
-  }
+	"colors": {
+		"black": "#000000FF",
+		"clear": "#FFFFFF00",
+		"color-picker-bg": "#000000BA",
+		"gray": "#7F7F7FFF",
+		"light-gray": "#DBDBDBFF",
+		"link": "#87FFF9FF",
+		"red": "#FF0000FF",
+		"white": "#FFFFFFFF"
+	},
+	"drawables": {
+		"black": {
+			"name": "white",
+			"color": "black"
+		},
+		"gray": {
+			"name": "white",
+			"color": "gray"
+		},
+		"test": {
+			"name": "textfield-pressed",
+			"color": "red"
+		},
+		"color-picker-bg": {
+			"name": "white",
+			"color": "color-picker-bg"
+		},
+		"clear": {
+			"name": "white",
+			"color": "clear"
+		},
+		"link-underline": {
+			"name": "white",
+			"color": "link"
+		}
+	},
+	"checkBox": {
+		"image": {
+			"pressedImage": "check",
+			"image": "checkbox",
+			"background": "checkbox",
+			"overBackground": "checkbox"
+		},
+		"label": {
+			"font": "font",
+			"textColor": "white"
+		}
+	},
+	"imageButton": {
+		"pressedBackground": "button-pressed",
+		"background": "button",
+		"variants": {
+			"close-window": {
+				"pressedBackground": "button-pressed",
+				"overBackground": "button",
+				"image": {
+					"image": "icon-close"
+				}
+			},
+			"arrow-1": {
+				"pressedBackground": "button-pressed",
+				"background": "button",
+				"image": {
+					"image": "icon-arrow-1"
+				}
+			},
+			"arrow-2": {
+				"pressedBackground": "button-pressed",
+				"background": "button",
+				"image": {
+					"image": "icon-arrow-2"
+				}
+			},
+			"rect": {
+				"pressedBackground": "button-pressed",
+				"background": "button",
+				"image": {
+					"image": "icon-rect"
+				}
+			},
+			"pencil": {
+				"pressedBackground": "button-pressed",
+				"background": "button",
+				"image": {
+					"image": "icon-pencil"
+				}
+			},
+			"brush": {
+				"pressedBackground": "button-pressed",
+				"background": "button",
+				"image": {
+					"image": "icon-brush"
+				}
+			},
+			"close-active-tab": {
+				"pressedBackground": "button-pressed",
+				"overBackground": "button",
+				"image": {
+					"image": "icon-close"
+				}
+			}
+		}
+	},
+	"window": {
+		"closeButton": {
+			"pressedBackground": "button-pressed",
+			"overBackground": "button",
+			"image": {
+				"image": "icon-close"
+			}
+		},
+		"background": "window",
+		"title": {
+			"font": "font"
+		}
+	},
+	"button": {
+		"pressedBackground": "button-pressed",
+		"background": "button",
+		"label": {
+			"font": "font",
+			"textColor": "white",
+			"downTextColor": "light-gray"
+		}
+	},
+	"textBlock": {
+		"font": "font",
+		"textColor": "white",
+		"variants": {
+			"menuitem-shortcut": {
+				"font": "font"
+			},
+			"small": {
+				"font": "font"
+			},
+			"title": {
+				"font": "title"
+			}
+		}
+	},
+	"listBox": {
+		"listBoxItem": {
+			"label": {
+				"font": "font"
+			},
+			"pressedBackground": "selection"
+		}
+	},
+	"horizontalProgressBar": {
+		"background": "progress-bar-horizontal",
+		"filled": "progress-bar-knob-horizontal"
+	},
+	"verticalProgressBar": {
+		"background": "progress-bar-vertical",
+		"filled": "progress-bar-knob-vertical"
+	},
+	"scrollArea": {
+		"horizontalScrollKnob": "scrollbar-horizontal",
+		"verticalScrollKnob": "scrollbar-vertical",
+		"variants": {
+			"list": {
+				"horizontalScrollKnob": "scrollbar-horizontal",
+				"verticalScrollKnob": "scrollbar-vertical"
+			},
+			"select-box": {
+				"background": "list",
+				"horizontalScrollKnob": "scrollbar-horizontal",
+				"verticalScrollKnob": "scrollbar-vertical"
+			}
+		}
+	},
+	"comboBox": {
+		"label": {
+			"font": "font",
+			"textColor": "white"
+		},
+		"background": "select-box"
+	},
+	"horizontalSlider": {
+		"knob": {
+			"image": {
+				"pressedImage": "slider-knob-pressed-horizontal",
+				"image": "slider-knob-horizontal"
+			}
+		},
+		"background": "progress-bar-horizontal"
+	},
+	"verticalSlider": {
+		"knob": {
+			"image": {
+				"pressedImage": "slider-knob-pressed-vertical",
+				"image": "slider-knob-vertical"
+			}
+		},
+		"background": "progress-bar-vertical"
+	},
+	"horizontalSplitPane": {
+		"handle": {
+			"background": "splitpane-horizontal",
+			"overBackground": "splitpane-horizontal-pressed"
+		}
+	},
+	"verticalSplitPane": {
+		"handle": {
+			"background": "splitpane-vertical",
+			"overBackground": "splitpane-vertical-pressed"
+		}
+	},
+	"textButton": {
+		"pressedBackground": "button-pressed",
+		"background": "button",
+		"label": {
+			"font": "font",
+			"textColor": "white",
+			"downTextColor": "light-gray"
+		},
+		"variants": {
+			"menu": {
+				"pressedBackground": "menu-button-down",
+				"background": "menu-button",
+				"overBackground": "menu-button-down",
+				"label": {
+					"font": "font",
+					"textColor": "white",
+					"downTextColor": "light-gray"
+				}
+			},
+			"tab": {
+				"pressedBackground": "tab-pressed",
+				"background": "tab-pressed",
+				"label": {
+					"font": "font",
+					"textColor": "white"
+				}
+			}
+		}
+	},
+	"textField": {
+		"font": "font",
+		"textColor": "white",
+		"selection": "gray",
+		"background": "textfield",
+		"cursor": "black",
+		"focusedTextColor": "black",
+		"focusedBackground": "textfield-pressed",
+		"heightHint": 20
+	},
+	"tree": {
+			"mark": {
+				"image": {
+					"image": "tree-plus",
+					"pressedImage": "tree-minus"
+				},
+				"label": {
+					"font": "font",
+					"textColor": "white"
+				}
+			}
+	},
+	"horizontalMenu": {
+		"background": "menu-bar",
+		"menuItem": {
+			"pressedBackground": "menu-button-down",
+			"background": "menu-button",
+			"overBackground": "menu-button-over",
+			"label": {
+				"font": "font",
+				"textColor": "white"
+			}
+		}
+	},
+	"verticalMenu": {
+		"background": "menu-bar",
+		"menuItem": {
+			"pressedBackground": "menu-button-down",
+			"background": "menu-button",
+			"overBackground": "menu-button-over",
+			"label": {
+				"font": "font",
+				"textColor": "white"
+			}
+		}
+	},
+	"spinButton": {
+		"textField": {
+			"font": "font",
+			"textColor": "white",
+			"selection": "gray",
+			"background": "textfield",
+			"cursor": "black",
+			"focusedTextColor": "black",
+			"focusedBackground": "textfield-pressed"
+		},
+		"downButton": {
+			"pressedBackground": "button-pressed",
+			"background": "button",
+			"image": {
+				"image": "spinner-down"
+			},
+			"heightHint": 12
+		},
+		"upButton": {
+			"pressedBackground": "button-pressed",
+			"background": "button",
+			"image": {
+				"image": "spinner-up"
+			},
+			"heightHint": 12
+		}
+	}
 }

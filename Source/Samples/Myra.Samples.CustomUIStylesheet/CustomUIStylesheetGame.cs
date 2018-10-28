@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Myra.Graphics2D;
 using Myra.Graphics2D.Text;
 using Myra.Graphics2D.TextureAtlases;
 using Myra.Graphics2D.UI;
 using Myra.Graphics2D.UI.Styles;
 using Myra.Utility;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Myra.Samples.CustomUIStylesheet
@@ -49,13 +51,16 @@ namespace Myra.Samples.CustomUIStylesheet
 			var textureAtlas = TextureRegionAtlas.FromJson(assetResolver.ReadAsString("ui_stylesheet_atlas.json"), texture);
 
 			// Load ui font(s)
-			var font = SpriteFontHelper.LoadFromFnt(assetResolver.ReadAsString("ui_font.fnt"),
-				textureAtlas["default"]);
+			var fonts = new Dictionary<string, SpriteFont>
+			{
+				["font"] = SpriteFontHelper.LoadFromFnt(assetResolver.ReadAsString("font-export.fnt"), textureAtlas["font-export"]),
+				["title"] = SpriteFontHelper.LoadFromFnt(assetResolver.ReadAsString("font-title-export.fnt"), textureAtlas["font-title-export"]),
+			};
 
 			// Load stylesheet
 			var stylesheet = Stylesheet.CreateFromSource(assetResolver.ReadAsString("ui_stylesheet.json"),
 				s => textureAtlas[s],
-				s => font);
+				s => fonts[s]);
 
 			Stylesheet.Current = stylesheet;
 

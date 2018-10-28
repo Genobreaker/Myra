@@ -21,6 +21,7 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 		private class StyleInfo
 		{
 			public Dictionary<string, string> PropertyConversion { get; set; }
+			public Dictionary<string, StyleInfo> SpecialVariants { get; set; }
 			public bool HorizontalAndVertical { get; set; }
 		}
 
@@ -74,25 +75,22 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 						{ "down", "imageButton/pressedBackground" },
 						{ "over", "imageButton/overBackground" },
 						{ "imageUp", "imageButton/image/image" },
-					}
-				}
-			},
-			{
-				"com.kotcrab.vis.ui.widget.VisImageTextButton$VisImageTextButtonStyle/menu-bar",
-				new StyleInfo
-				{
-					PropertyConversion = new Dictionary<string, string>
-					{
-						{ "up", "Menu/menuItem/background" },
-						{ "down", "Menu/menuItem/pressedBackground" },
-						{ "over", "Menu/menuItem/overBackground" },
-						{ "disabled", "Menu/menuItem/disabledBackground" },
-						{ "font", "Menu/menuItem/label/font" },
-						{ "fontColor", "Menu/menuItem/label/textColor" },
-						{ "disabledFontColor", "Menu/menuItem/label/disabledTextColor" },
-						{ "downFontColor", "Menu/menuItem/label/downTextColor" },
 					},
-					HorizontalAndVertical = true
+					SpecialVariants = new Dictionary<string, StyleInfo>
+					{
+						{
+							"close", new StyleInfo
+							{
+								PropertyConversion = new Dictionary<string, string>
+								{
+									{ "up", "window/closeButton/background" },
+									{ "down", "window/closeButton/pressedBackground" },
+									{ "over", "window/closeButton/overBackground" },
+									{ "imageUp", "window/closeButton/image/image" },
+								},
+							}
+						}
+					}
 				}
 			},
 			{
@@ -116,8 +114,6 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 				{
 					PropertyConversion = new Dictionary<string, string>
 					{
-						{ "up", "textBlock/background" },
-						{ "down", "textBlock/pressedBackground" },
 						{ "font", "textBlock/font" },
 						{ "fontColor", "textBlock/textColor" },
 						{ "disabledFontColor", "textBlock/disabledTextColor" },
@@ -302,6 +298,23 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 					}
 				}
 			},
+			{
+				"com.kotcrab.vis.ui.widget.MenuItem$MenuItemStyle",
+				new StyleInfo
+				{
+					PropertyConversion = new Dictionary<string, string>
+					{
+						{ "up", "Menu/menuItem/background" },
+						{ "down", "Menu/menuItem/pressedBackground" },
+						{ "over", "Menu/menuItem/overBackground" },
+						{ "font", "Menu/menuItem/label/font" },
+						{ "fontColor", "Menu/menuItem/label/textColor" },
+						{ "disabledFontColor", "Menu/menuItem/label/disabledTextColor" },
+						{ "downFontColor", "Menu/menuItem/label/downTextColor" },
+					},
+					HorizontalAndVertical = true
+				}
+			},
 		};
 
 		private static Color FromInputColor(object data)
@@ -402,7 +415,7 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 					}
 				}
 
-				Dictionary<string, DrawableInfo> drawables = new Dictionary<string, DrawableInfo>();
+				Dictionary<string, Tuple<string, string>> drawables = new Dictionary<string, Tuple<string, string>>();
 				if (input.TryGetValue("com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable", out obj))
 				{
 					var inputDrawables = (Dictionary<string, object>)obj;
@@ -410,28 +423,16 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 					{
 						var inputData = (Dictionary<string, object>)pair.Value;
 
-						var colorObject = inputData["color"];
+						var name = (string)inputData["name"];
+						var color = (string)inputData["color"];
 
-						Color color;
-						if (colorObject is string)
-						{
-							color = colors[(string)colorObject];
-						} else
-						{
-							color = FromInputColor(colorObject);
-						}
-
-						drawables[pair.Key] = new DrawableInfo
-						{
-							Name = (string)inputData["name"],
-							Color = color
-						};
+						drawables[pair.Key] = new Tuple<string, string>(name, color);
 					}
 				}
 
 				var output = new JObject();
 
-				foreach(var pair in colors)
+				foreach (var pair in colors)
 				{
 					if (output["colors"] == null)
 					{
@@ -441,85 +442,82 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 					output["colors"][pair.Key] = pair.Value.ToHexString();
 				}
 
+				foreach (var pair in drawables)
+				{
+					if (output["drawables"] == null)
+					{
+						output["drawables"] = new JObject();
+					}
+
+					output["drawables"][pair.Key] = new JObject();
+
+					output["drawables"][pair.Key]["name"] = pair.Value.Item1;
+					output["drawables"][pair.Key]["color"] = pair.Value.Item2;
+				}
+
 				foreach (var pair in _styles)
 				{
 					var parts = pair.Key.Split('|');
 					var itemName = parts[parts.Length - 1];
 
-					var parts2 = itemName.Split('/');
-
-					if (input.TryGetValue(parts2[0], out obj))
+					if (input.TryGetValue(itemName, out obj))
 					{
 						var inputVariants = (Dictionary<string, object>)obj;
 
-						if (parts2.Length > 1)
+						if (inputVariants.TryGetValue("default", out obj))
 						{
-							if (inputVariants.TryGetValue(parts2[1], out obj))
+							var inputProps = (Dictionary<string, object>)obj;
+							if (!pair.Value.HorizontalAndVertical)
 							{
-								var inputProps = (Dictionary<string, object>)obj;
-								if (!pair.Value.HorizontalAndVertical)
-								{
-									ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, string.Empty);
-								}
-								else
-								{
-									ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, "horizontal");
-									ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, "vertical");
-								}
+								ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, string.Empty);
 							}
-						}
-						else
-						{
-							if (inputVariants.TryGetValue("default", out obj))
+							else
 							{
-								var inputProps = (Dictionary<string, object>)obj;
-								if (!pair.Value.HorizontalAndVertical)
-								{
-									ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, string.Empty);
-								}
-								else
-								{
-									ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, "horizontal");
-									ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, "vertical");
-								}
-							}
-
-							if (inputVariants.TryGetValue("default-horizontal", out obj))
-							{
-								var inputProps = (Dictionary<string, object>)obj;
 								ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, "horizontal");
-							}
-
-							if (inputVariants.TryGetValue("default-vertical", out obj))
-							{
-								var inputProps = (Dictionary<string, object>)obj;
 								ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, "vertical");
 							}
+						}
 
-							foreach (var pair2 in inputVariants)
+						if (inputVariants.TryGetValue("default-horizontal", out obj))
+						{
+							var inputProps = (Dictionary<string, object>)obj;
+							ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, "horizontal");
+						}
+
+						if (inputVariants.TryGetValue("default-vertical", out obj))
+						{
+							var inputProps = (Dictionary<string, object>)obj;
+							ParseInto(output, string.Empty, pair.Value, inputProps, itemName, string.Empty, "vertical");
+						}
+
+						foreach (var pair2 in inputVariants)
+						{
+							if (IgnoreVariants.Contains(pair2.Key))
 							{
-								if (parts2.Length > 1 && pair2.Key == parts2[1])
-								{
-									continue;
-								}
+								continue;
+							}
 
-								if (IgnoreVariants.Contains(pair2.Key))
-								{
-									continue;
-								}
+							var style = pair.Value;
+							var variantName = pair2.Key;
+							StyleInfo specialVariant = null;
+							if (pair.Value.SpecialVariants != null &&
+								pair.Value.SpecialVariants.TryGetValue(pair2.Key, out specialVariant))
+							{
+								variantName = string.Empty;
 
+								style = specialVariant;
+							}
 
-								var inputProps = (Dictionary<string, object>)pair2.Value;
+							var inputProps = (Dictionary<string, object>)pair2.Value;
 
-								if (!pair.Value.HorizontalAndVertical)
-								{
-									ParseInto(output, pair2.Key, pair.Value, inputProps, itemName, string.Empty, string.Empty);
-								}
-								else
-								{
-									ParseInto(output, pair2.Key, pair.Value, inputProps, itemName, string.Empty, "horizontal");
-									ParseInto(output, pair2.Key, pair.Value, inputProps, itemName, string.Empty, "vertical");
-								}
+							if (!pair.Value.HorizontalAndVertical)
+							{
+								ParseInto(output, variantName, style, inputProps, itemName, string.Empty, string.Empty);
+							}
+							else
+							{
+								ParseInto(output, variantName, style, inputProps, itemName, string.Empty, "horizontal");
+								ParseInto(output, variantName, style, inputProps, itemName, string.Empty, "vertical");
 							}
 						}
 					}

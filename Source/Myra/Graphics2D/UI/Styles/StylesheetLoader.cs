@@ -12,6 +12,7 @@ namespace Myra.Graphics2D.UI.Styles
 	{
 		public const string TypeName = "type";
 		public const string ColorsName = "colors";
+		public const string DrawablesName = "drawables";
 		public const string TextBlockName = "textBlock";
 		public const string TextFieldName = "textField";
 		public const string ScrollAreaName = "scrollArea";
@@ -56,7 +57,6 @@ namespace Myra.Graphics2D.UI.Styles
 		public const string TextColorName = "textColor";
 		public const string DisabledTextColorName = "disabledTextColor";
 		public const string FocusedTextColorName = "focusedTextColor";
-		public const string MessageTextColorName = "messageTextColor";
 		public const string HorizontalScrollName = "horizontalScroll";
 		public const string HorizontalScrollKnobName = "horizontalScrollKnob";
 		public const string VerticalScrollName = "verticalScroll";
@@ -100,6 +100,7 @@ namespace Myra.Graphics2D.UI.Styles
 		public const string VariantsName = "variants";
 
 		private readonly Dictionary<string, Color> _colors = new Dictionary<string, Color>();
+		private readonly Dictionary<string, Tuple<string, Color>> _drawables = new Dictionary<string, Tuple<string, Color>>();
 		private readonly JObject _root;
 		private readonly Func<string, SpriteFont> _fontLoader;
 		private readonly Func<string, TextureRegion> _textureLoader;
@@ -130,7 +131,32 @@ namespace Myra.Graphics2D.UI.Styles
 
 		private Drawable GetDrawable(string id)
 		{
+			Tuple<string, Color> drawableFromTable;
+			if (_drawables.TryGetValue(id, out drawableFromTable))
+			{
+				return new Drawable(_textureLoader(drawableFromTable.Item1))
+				{
+					Color = drawableFromTable.Item2
+				};
+			}
+
+
 			return new Drawable(_textureLoader(id));
+		}
+
+		private void ParseDrawables(JObject drawables)
+		{
+			_drawables.Clear();
+
+			foreach (var props in drawables.Properties())
+			{
+				// Parse it
+				var name = props.Value["name"].ToString();
+				var color = props.Value["color"].ToString();
+
+				var drawableEntry = new Tuple<string, Color>(name, GetColor(color));
+				_drawables.Add(props.Name, drawableEntry);
+			}
 		}
 
 		private SpriteFont GetFont(string id)
@@ -303,11 +329,6 @@ namespace Myra.Graphics2D.UI.Styles
 				result.FocusedTextColor = GetColor(name);
 			}
 
-			if (source.GetStyle(MessageTextColorName, out name))
-			{
-				result.MessageTextColor = GetColor(name);
-			}
-
 			if (source.GetStyle(FontName, out name))
 			{
 				result.Font = GetFont(name);
@@ -443,12 +464,12 @@ namespace Myra.Graphics2D.UI.Styles
 
 			if (source.GetStyle(UpButtonStyleName, out style))
 			{
-				LoadButtonStyleFromSource(style, result.UpButtonStyle);
+				LoadImageButtonStyleFromSource(style, result.UpButtonStyle);
 			}
 
 			if (source.GetStyle(DownButtonStyleName, out style))
 			{
-				LoadButtonStyleFromSource(style, result.DownButtonStyle);
+				LoadImageButtonStyleFromSource(style, result.DownButtonStyle);
 			}
 		}
 
@@ -649,6 +670,13 @@ namespace Myra.Graphics2D.UI.Styles
 			{
 				ParseColors(colors);
 			}
+
+			JObject drawables;
+			if (_root.GetStyle(DrawablesName, out drawables))
+			{
+				ParseDrawables(drawables);
+			}
+
 			FillStyles(TextBlockName, result.TextBlockStyles, LoadTextBlockStyleFromSource);
 			FillStyles(TextFieldName, result.TextFieldStyles, LoadTextFieldStyleFromSource);
 			FillStyles(ScrollAreaName, result.ScrollPaneStyles, LoadScrollAreaStyleFromSource);
