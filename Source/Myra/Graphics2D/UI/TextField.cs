@@ -55,6 +55,7 @@ namespace Myra.Graphics2D.UI
 		[HiddenInEditor]
 		[JsonIgnore]
 		[EditCategory("Appearance")]
+		[Obsolete]
 		public SpriteFont MessageFont { get; set; }
 
 		[EditCategory("Appearance")]
@@ -83,6 +84,10 @@ namespace Myra.Graphics2D.UI
 
 		[EditCategory("Appearance")]
 		public Color? FocusedTextColor { get; set; }
+
+		[EditCategory("Appearance")]
+		[Obsolete]
+		public Color? MessageTextColor { get; set; }
 
 		[HiddenInEditor]
 		[JsonIgnore]

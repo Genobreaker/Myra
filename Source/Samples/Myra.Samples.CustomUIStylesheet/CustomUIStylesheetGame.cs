@@ -43,7 +43,7 @@ namespace Myra.Samples.CustomUIStylesheet
 
 			// Load image containing font & ui spritesheet
 			var colorBuffer = ColorBuffer.FromStream(assetResolver.Open("ui_stylesheet_atlas.png"));
-			colorBuffer.Process(true);
+			colorBuffer.PremultiplyAlpha();
 
 			var texture = colorBuffer.CreateTexture2D();
 
