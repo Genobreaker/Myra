@@ -112,7 +112,8 @@
 		},
 		"background": "window",
 		"title": {
-			"font": "font"
+			"font": "font",
+			"textColor": "white"
 		}
 	},
 	"button": {
@@ -276,6 +277,8 @@
 			"pressedBackground": "menu-button-down",
 			"background": "menu-button",
 			"overBackground": "menu-button-over",
+			"iconWidth": 22,
+			"shortcutWidth": 22,
 			"label": {
 				"font": "font",
 				"textColor": "white"

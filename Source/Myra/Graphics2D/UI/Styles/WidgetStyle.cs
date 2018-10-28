@@ -1,6 +1,4 @@
-﻿using Myra.Graphics2D.TextureAtlases;
-
-namespace Myra.Graphics2D.UI.Styles
+﻿namespace Myra.Graphics2D.UI.Styles
 {
 	public class WidgetStyle
 	{
@@ -17,7 +15,10 @@ namespace Myra.Graphics2D.UI.Styles
 		public Drawable DisabledBorder { get; set; }
 		public Drawable FocusedBorder { get; set; }
 
-		public PaddingInfo Padding { get; set; }
+		public int? PaddingLeft { get; set; }
+		public int? PaddingRight { get; set; }
+		public int? PaddingTop { get; set; }
+		public int? PaddingBottom { get; set; }
 
 		public WidgetStyle()
 		{
@@ -35,7 +36,10 @@ namespace Myra.Graphics2D.UI.Styles
 			OverBorder = style.OverBorder;
 			DisabledBorder = style.DisabledBorder;
 			FocusedBorder = style.FocusedBorder;
-			Padding = style.Padding;
+			PaddingLeft = style.PaddingLeft;
+			PaddingRight = style.PaddingRight;
+			PaddingTop = style.PaddingTop;
+			PaddingBottom = style.PaddingBottom;
 		}
 
 		public virtual WidgetStyle Clone()

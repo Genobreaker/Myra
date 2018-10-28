@@ -919,10 +919,22 @@ namespace Myra.Graphics2D.UI
 			DisabledBorder = style.DisabledBorder;
 			FocusedBorder = style.FocusedBorder;
 
-			PaddingLeft = style.Padding.Left;
-			PaddingRight = style.Padding.Right;
-			PaddingTop = style.Padding.Top;
-			PaddingBottom = style.Padding.Bottom;
+			if (style.PaddingLeft != null)
+			{
+				PaddingLeft = style.PaddingLeft.Value;
+			}
+			if (style.PaddingRight != null)
+			{
+				PaddingRight = style.PaddingRight.Value;
+			}
+			if (style.PaddingTop != null)
+			{
+				PaddingTop = style.PaddingTop.Value;
+			}
+			if (style.PaddingBottom != null)
+			{
+				PaddingBottom = style.PaddingBottom.Value;
+			}
 		}
 
 		protected virtual void SetStyleByName(Stylesheet stylesheet, string name)

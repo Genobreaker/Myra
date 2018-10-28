@@ -284,7 +284,26 @@ namespace Myra.Graphics2D.UI.Styles
 			JObject padding;
 			if (source.GetStyle(PaddingName, out padding))
 			{
-				result.Padding = GetPaddingInfo(padding);
+				int value;
+				if (padding.GetStyle(LeftName, out value))
+				{
+					result.PaddingLeft = value;
+				}
+
+				if (padding.GetStyle(RightName, out value))
+				{
+					result.PaddingRight = value;
+				}
+
+				if (padding.GetStyle(TopName, out value))
+				{
+					result.PaddingTop = value;
+				}
+
+				if (padding.GetStyle(BottomName, out value))
+				{
+					result.PaddingBottom = value;
+				}
 			}
 		}
 
