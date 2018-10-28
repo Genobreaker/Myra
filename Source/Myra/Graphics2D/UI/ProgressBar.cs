@@ -87,7 +87,7 @@ namespace Myra.Graphics2D.UI
 
 		public event EventHandler ValueChanged;
 
-		protected ProgressBar(ProgressBarStyle style)
+		protected ProgressBar(ProgressBarStyle style): base(style)
 		{
 			_filledImage = new Image
 			{

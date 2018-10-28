@@ -101,7 +101,7 @@ namespace Myra.Graphics2D.UI
 
 		public event EventHandler Closed;
 
-		public Window(WindowStyle style)
+		public Window(WindowStyle style): base(style)
 		{
 			ModalResult = (int)DefaultModalResult.Cancel;
 			Result = false;

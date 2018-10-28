@@ -82,7 +82,7 @@ namespace Myra.Graphics2D.UI
 			}
 		}
 
-		public TreeNode(TreeStyle style, Tree topTree)
+		public TreeNode(TreeStyle style, Tree topTree): base(style)
 		{
 			_topTree = topTree;
 
@@ -202,7 +202,6 @@ namespace Myra.Graphics2D.UI
 		{
 			return (TreeNode) _childNodesGrid.Widgets[index];
 		}
-
 
 		public void RemoveSubNode(TreeNode subNode)
 		{

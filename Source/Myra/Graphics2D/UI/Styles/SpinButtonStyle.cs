@@ -1,6 +1,6 @@
 ﻿namespace Myra.Graphics2D.UI.Styles
 {
-	public class SpinButtonStyle: WidgetStyle
+	public class SpinButtonStyle: GridStyle
 	{
 		public ImageButtonStyle UpButtonStyle { get; set; }
 		public ImageButtonStyle DownButtonStyle { get; set; }

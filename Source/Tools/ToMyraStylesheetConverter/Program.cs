@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using MonoGdx.Utils;
-using Myra.Graphics2D;
 using Myra.Utility;
 using Newtonsoft.Json.Linq;
 using System;
@@ -10,7 +9,7 @@ using System.Linq;
 
 namespace Myra.Tools.ToMyraStylesheetConverter
 {
-	class Program
+	static class Program
 	{
 		private class DrawableInfo
 		{
@@ -317,14 +316,31 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 			},
 		};
 
+		private static bool TryGetValue(this Dictionary<string, object> dict, string str, out float f)
+		{
+			object obj;
+
+			f = 0;
+			if (dict.TryGetValue(str, out obj))
+			{
+				f = (float)obj;
+				return true;
+			}
+
+			return false;
+		}
+
 		private static Color FromInputColor(object data)
 		{
 			var inputData = (Dictionary<string, object>)data;
 
-			return new Color((float)inputData["r"],
-				(float)inputData["g"],
-				(float)inputData["b"],
-				(float)inputData["a"]);
+			float r = 0, g = 0, b = 0, a = 0;
+			inputData.TryGetValue("r", out r);
+			inputData.TryGetValue("g", out g);
+			inputData.TryGetValue("b", out b);
+			inputData.TryGetValue("a", out a);
+
+			return new Color(r, g, b, a);
 		}
 
 		private static void ParseInto(JObject outputObj, string variantName, StyleInfo info, Dictionary<string, object> inputProperties, string itemName, string inputPrefix = "", string outputPrefix = "")
@@ -415,7 +431,7 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 					}
 				}
 
-				Dictionary<string, Tuple<string, string>> drawables = new Dictionary<string, Tuple<string, string>>();
+				Dictionary<string, Tuple<string, Color>> drawables = new Dictionary<string, Tuple<string, Color>>();
 				if (input.TryGetValue("com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable", out obj))
 				{
 					var inputDrawables = (Dictionary<string, object>)obj;
@@ -424,9 +440,19 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 						var inputData = (Dictionary<string, object>)pair.Value;
 
 						var name = (string)inputData["name"];
-						var color = (string)inputData["color"];
 
-						drawables[pair.Key] = new Tuple<string, string>(name, color);
+						obj = inputData["color"];
+						Color color;
+						if (obj is string)
+						{
+							color = colors[(string)obj];
+						} else
+						{
+							color = FromInputColor(obj);
+						}
+
+
+						drawables[pair.Key] = new Tuple<string, Color>(name, color);
 					}
 				}
 
@@ -452,16 +478,22 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 					output["drawables"][pair.Key] = new JObject();
 
 					output["drawables"][pair.Key]["name"] = pair.Value.Item1;
-					output["drawables"][pair.Key]["color"] = pair.Value.Item2;
+					output["drawables"][pair.Key]["color"] = pair.Value.Item2.ToHexString();
 				}
 
 				foreach (var pair in _styles)
 				{
 					var parts = pair.Key.Split('|');
-					var itemName = parts[parts.Length - 1];
 
-					if (input.TryGetValue(itemName, out obj))
+					for (var i = parts.Length - 1; i >= 0; --i)
 					{
+						var itemName = parts[i];
+
+						if (!input.TryGetValue(itemName, out obj))
+						{
+							continue;
+						}
+
 						var inputVariants = (Dictionary<string, object>)obj;
 
 						if (inputVariants.TryGetValue("default", out obj))
@@ -520,6 +552,8 @@ namespace Myra.Tools.ToMyraStylesheetConverter
 								ParseInto(output, variantName, style, inputProps, itemName, string.Empty, "vertical");
 							}
 						}
+
+						break;
 					}
 				}
 

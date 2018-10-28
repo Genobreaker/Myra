@@ -89,8 +89,7 @@
     </None>
     <None Include="app.manifest" />
     <EmbeddedResource Include="Resources\ui_stylesheet_atlas.json" />
-    <EmbeddedResource Include="Resources\font-export.fnt" />
-    <EmbeddedResource Include="Resources\font-title-export.fnt" />
+    <EmbeddedResource Include="Resources\commodore-64.fnt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Myra-Dependencies\MonoGame.Framework.DesktopGL\x64\SDL2.dll">

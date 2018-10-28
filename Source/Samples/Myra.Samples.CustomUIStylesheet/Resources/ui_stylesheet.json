@@ -1,315 +1,224 @@
 {
 	"colors": {
-		"black": "#000000FF",
-		"clear": "#FFFFFF00",
-		"color-picker-bg": "#000000BA",
-		"gray": "#7F7F7FFF",
-		"light-gray": "#DBDBDBFF",
-		"link": "#87FFF9FF",
+		"green": "#00FF00FF",
+		"light_grey": "#CCCCCCFF",
+		"white": "#FFFFFFFF",
 		"red": "#FF0000FF",
-		"white": "#FFFFFFFF"
+		"light_blue": "#A5A5FFFF",
+		"grey": "#B2B2B2FF",
+		"dark_grey": "#666666FF",
+		"blue": "#4242E7FF",
+		"black": "#000000FF"
 	},
 	"drawables": {
-		"black": {
+		"dialogDim": {
 			"name": "white",
-			"color": "black"
-		},
-		"gray": {
-			"name": "white",
-			"color": "gray"
-		},
-		"test": {
-			"name": "textfield-pressed",
-			"color": "red"
-		},
-		"color-picker-bg": {
-			"name": "white",
-			"color": "color-picker-bg"
-		},
-		"clear": {
-			"name": "white",
-			"color": "clear"
-		},
-		"link-underline": {
-			"name": "white",
-			"color": "link"
+			"color": "#333333FF"
 		}
 	},
 	"checkBox": {
 		"image": {
-			"pressedImage": "check",
-			"image": "checkbox",
-			"background": "checkbox",
-			"overBackground": "checkbox"
+			"pressedImage": "check-box",
+			"image": "check-box-off",
+			"widthHint": 16,
+			"heightHint": 16
 		},
 		"label": {
-			"font": "font",
+			"font": "commodore-64",
 			"textColor": "white"
 		}
 	},
 	"imageButton": {
-		"pressedBackground": "button-pressed",
 		"background": "button",
-		"variants": {
-			"close-window": {
-				"pressedBackground": "button-pressed",
-				"overBackground": "button",
-				"image": {
-					"image": "icon-close"
-				}
-			},
-			"arrow-1": {
-				"pressedBackground": "button-pressed",
-				"background": "button",
-				"image": {
-					"image": "icon-arrow-1"
-				}
-			},
-			"arrow-2": {
-				"pressedBackground": "button-pressed",
-				"background": "button",
-				"image": {
-					"image": "icon-arrow-2"
-				}
-			},
-			"rect": {
-				"pressedBackground": "button-pressed",
-				"background": "button",
-				"image": {
-					"image": "icon-rect"
-				}
-			},
-			"pencil": {
-				"pressedBackground": "button-pressed",
-				"background": "button",
-				"image": {
-					"image": "icon-pencil"
-				}
-			},
-			"brush": {
-				"pressedBackground": "button-pressed",
-				"background": "button",
-				"image": {
-					"image": "icon-brush"
-				}
-			},
-			"close-active-tab": {
-				"pressedBackground": "button-pressed",
-				"overBackground": "button",
-				"image": {
-					"image": "icon-close"
-				}
-			}
-		}
-	},
-	"window": {
-		"closeButton": {
-			"pressedBackground": "button-pressed",
-			"overBackground": "button",
-			"image": {
-				"image": "icon-close"
-			}
-		},
-		"background": "window",
-		"title": {
-			"font": "font",
-			"textColor": "white"
-		}
-	},
-	"button": {
-		"pressedBackground": "button-pressed",
-		"background": "button",
-		"label": {
-			"font": "font",
-			"textColor": "white",
-			"downTextColor": "light-gray"
+		"pressedBackground": "button-down",
+		"padding": {
+			"top": 5.0,
+			"bottom": 5.0,
+			"left": 8.0,
+			"right": 8.0
 		}
 	},
 	"textBlock": {
-		"font": "font",
+		"font": "commodore-64",
 		"textColor": "white",
 		"variants": {
-			"menuitem-shortcut": {
-				"font": "font"
+			"optional": {
+				"font": "commodore-64"
 			},
-			"small": {
-				"font": "font"
+			"error": {
+				"font": "commodore-64"
 			},
 			"title": {
-				"font": "title"
+				"font": "commodore-64"
 			}
 		}
 	},
 	"listBox": {
 		"listBoxItem": {
 			"label": {
-				"font": "font"
+				"font": "commodore-64",
+				"textColor": "white"
 			},
-			"pressedBackground": "selection"
+			"pressedBackground": "white"
+		},
+		"variants": {
+			"dimmed": {
+				"listBoxItem": {
+					"label": {
+						"font": "commodore-64"
+					},
+					"pressedBackground": "light-blue"
+				}
+			}
 		}
 	},
 	"horizontalProgressBar": {
-		"background": "progress-bar-horizontal",
-		"filled": "progress-bar-knob-horizontal"
+		"background": "progress-bar",
+		"filled": "progress-bar-knob"
 	},
 	"verticalProgressBar": {
-		"background": "progress-bar-vertical",
-		"filled": "progress-bar-knob-vertical"
+		"background": "progress-bar",
+		"filled": "progress-bar-knob"
 	},
 	"scrollArea": {
-		"horizontalScrollKnob": "scrollbar-horizontal",
-		"verticalScrollKnob": "scrollbar-vertical",
-		"variants": {
-			"list": {
-				"horizontalScrollKnob": "scrollbar-horizontal",
-				"verticalScrollKnob": "scrollbar-vertical"
-			},
-			"select-box": {
-				"background": "list",
-				"horizontalScrollKnob": "scrollbar-horizontal",
-				"verticalScrollKnob": "scrollbar-vertical"
-			}
-		}
+		"background": "blue",
+		"horizontalScroll": "scroll-bar",
+		"horizontalScrollKnob": "scroll-bar-horizontal-knob",
+		"verticalScroll": "scroll-bar",
+		"verticalScrollKnob": "scroll-bar-vertical-knob"
 	},
 	"comboBox": {
 		"label": {
-			"font": "font",
+			"font": "commodore-64",
 			"textColor": "white"
 		},
-		"background": "select-box"
+		"background": "list",
+		"itemsContainer": {
+			"background": "white"
+		},
+		"comboBoxItem": {
+			"pressedBackground": "button-down",
+			"label": {
+				"font": "commodore-64",
+				"textColor": "white"
+			},
+			"padding": {
+				"top": 5.0,
+				"bottom": 5.0,
+				"left": 8.0,
+				"right": 8.0
+			}
+		}
 	},
 	"horizontalSlider": {
+		"background": "slider",
 		"knob": {
 			"image": {
-				"pressedImage": "slider-knob-pressed-horizontal",
-				"image": "slider-knob-horizontal"
+				"image": "slider-knob"
 			}
-		},
-		"background": "progress-bar-horizontal"
+		}
 	},
 	"verticalSlider": {
+		"background": "slider",
 		"knob": {
 			"image": {
-				"pressedImage": "slider-knob-pressed-vertical",
-				"image": "slider-knob-vertical"
+				"image": "slider-knob"
 			}
-		},
-		"background": "progress-bar-vertical"
+		}
 	},
 	"horizontalSplitPane": {
 		"handle": {
-			"background": "splitpane-horizontal",
-			"overBackground": "splitpane-horizontal-pressed"
+			"background": "horizontal-split-pane"
 		}
 	},
 	"verticalSplitPane": {
 		"handle": {
-			"background": "splitpane-vertical",
-			"overBackground": "splitpane-vertical-pressed"
+			"background": "vertical-split-pane"
 		}
 	},
 	"textButton": {
-		"pressedBackground": "button-pressed",
-		"background": "button",
 		"label": {
-			"font": "font",
-			"textColor": "white",
-			"downTextColor": "light-gray"
+			"font": "commodore-64",
+			"textColor": "white"
 		},
-		"variants": {
-			"menu": {
-				"pressedBackground": "menu-button-down",
-				"background": "menu-button",
-				"overBackground": "menu-button-down",
-				"label": {
-					"font": "font",
-					"textColor": "white",
-					"downTextColor": "light-gray"
-				}
-			},
-			"tab": {
-				"pressedBackground": "tab-pressed",
-				"background": "tab-pressed",
-				"label": {
-					"font": "font",
-					"textColor": "white"
-				}
-			}
+		"background": "button",
+		"pressedBackground": "button-down",
+		"padding": {
+			"top": 5.0,
+			"bottom": 5.0,
+			"left": 8.0,
+			"right": 8.0
+		}
+	},
+	"button": {
+		"label": {
+			"font": "commodore-64",
+			"textColor": "white"
+		},
+		"background": "button",
+		"pressedBackground": "button-down",
+		"padding": {
+			"top": 5.0,
+			"bottom": 5.0,
+			"left": 8.0,
+			"right": 8.0
 		}
 	},
 	"textField": {
-		"font": "font",
-		"textColor": "white",
-		"selection": "gray",
-		"background": "textfield",
-		"cursor": "black",
-		"focusedTextColor": "black",
-		"focusedBackground": "textfield-pressed",
-		"heightHint": 20
+		"font": "commodore-64",
+		"textColor": "black",
+		"background": "white",
+		"cursor": "cursor-black",
+		"selection": "light-blue",
+		"variants": {
+			"nobg": {
+				"font": "commodore-64",
+				"cursor": "cursor",
+				"selection": "white"
+			}
+		}
 	},
 	"tree": {
-			"mark": {
-				"image": {
-					"image": "tree-plus",
-					"pressedImage": "tree-minus"
-				},
-				"label": {
-					"font": "font",
-					"textColor": "white"
+		"mark": {
+			"image": {
+				"image": "plus",
+				"pressedImage": "minus"
+			},
+			"label": {
+				"font": "commodore-64",
+				"textColor": "white"
+			}
+		},
+		"selectionBackground": "progress-bar"
+	},
+	"window": {
+		"background": "window",
+		"padding": {
+			"top": 25.0,
+			"bottom": 25.0,
+			"left": 25.0,
+			"right": 25.0
+		},
+		"title": {
+			"font": "commodore-64",
+			"textColor": "white"
+		},
+		"variants": {
+			"dialog": {
+				"background": "dialog",
+				"title": {
+					"font": "commodore-64"
+				}
+			},
+			"dialog-modal": {
+				"background": "dialog",
+				"title": {
+					"font": "commodore-64"
 				}
 			}
-	},
-	"horizontalMenu": {
-		"background": "menu-bar",
-		"menuItem": {
-			"pressedBackground": "menu-button-down",
-			"background": "menu-button",
-			"overBackground": "menu-button-over",
-			"label": {
-				"font": "font",
-				"textColor": "white"
-			}
 		}
 	},
-	"verticalMenu": {
-		"background": "menu-bar",
-		"menuItem": {
-			"pressedBackground": "menu-button-down",
-			"background": "menu-button",
-			"overBackground": "menu-button-over",
-			"iconWidth": 22,
-			"shortcutWidth": 22,
-			"label": {
-				"font": "font",
-				"textColor": "white"
-			}
-		}
-	},
-	"spinButton": {
-		"textField": {
-			"font": "font",
-			"textColor": "white",
-			"selection": "gray",
-			"background": "textfield",
-			"cursor": "black",
-			"focusedTextColor": "black",
-			"focusedBackground": "textfield-pressed"
-		},
-		"downButton": {
-			"pressedBackground": "button-pressed",
-			"background": "button",
-			"image": {
-				"image": "spinner-down"
-			},
-			"heightHint": 12
-		},
-		"upButton": {
-			"pressedBackground": "button-pressed",
-			"background": "button",
-			"image": {
-				"image": "spinner-up"
-			},
-			"heightHint": 12
-		}
+	"grid": {
+		"background":  "blue"
 	}
 }

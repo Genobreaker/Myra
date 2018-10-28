@@ -84,7 +84,7 @@ namespace Myra.Graphics2D.UI
 		/// </summary>
 		public event EventHandler ValueChangedByUser;
 
-		public SpinButton(SpinButtonStyle style)
+		public SpinButton(SpinButtonStyle style): base(style)
 		{
 			HorizontalAlignment = HorizontalAlignment.Left;
 			VerticalAlignment = VerticalAlignment.Top;

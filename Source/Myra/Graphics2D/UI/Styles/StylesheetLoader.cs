@@ -195,6 +195,12 @@ namespace Myra.Graphics2D.UI.Styles
 				return result;
 			}
 
+			var fromName = color.FromName();
+			if (fromName != null)
+			{
+				return fromName.Value;
+			}
+
 			// Not found
 			throw new Exception(string.Format("Unknown color '{0}'", color));
 		}
@@ -499,7 +505,7 @@ namespace Myra.Graphics2D.UI.Styles
 			JObject knobStyle;
 			if (source.GetStyle(KnobName, out knobStyle))
 			{
-				LoadButtonStyleFromSource(knobStyle, result.KnobStyle);
+				LoadImageButtonStyleFromSource(knobStyle, result.KnobStyle);
 			}
 		}
 
