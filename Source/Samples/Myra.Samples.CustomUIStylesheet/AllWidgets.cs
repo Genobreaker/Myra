@@ -2,6 +2,8 @@
 
 using Myra.Graphics2D;
 using Myra.Graphics2D.UI;
+using Myra.Graphics2D.UI.ColorPicker;
+using Myra.Graphics2D.UI.Styles;
 
 namespace Myra.Samples.CustomUIStylesheet
 {
@@ -11,19 +13,24 @@ namespace Myra.Samples.CustomUIStylesheet
 		{
 			BuildUI();
 
-			_button.Image = new Drawable(DefaultAssets.UISpritesheet["icon-star"]);
-			_imageButton.Image = new Drawable(DefaultAssets.UISpritesheet["icon-star-outline"]);
-
 			_button.Up += (sender, args) =>
 			{
-				var debugWindow = new DebugOptionsDialog();
-				debugWindow.ShowModal(Desktop);
 			};
 
 			_textButton.Up += (sender, args) =>
 			{
-				var debugWindow = new DebugOptionsDialog();
+				var debugWindow = new ColorPickerDialog();
 				debugWindow.ShowModal(Desktop);
+
+				debugWindow.Closed += (s, a) =>
+				{
+					if (!debugWindow.Result)
+					{
+						return;
+					}
+
+					_textButtonLabel.TextColor = debugWindow.Color;
+				};
 			};
 
 			_imageButton.Up += (sender, args) =>
@@ -36,7 +43,7 @@ namespace Myra.Samples.CustomUIStylesheet
 			{
 				HasRoot = false,
 				GridPositionX = 1,
-				GridPositionY = 9
+				GridPositionY = 8
 			};
 			var node1 = tree.AddSubNode("node1");
 			var node2 = node1.AddSubNode("node2");

@@ -129,7 +129,7 @@ namespace Myra.Graphics2D.UI
 
 		public Button(ButtonStyle style)
 		{
-			Widget = new Grid();
+			Widget = new Grid((GridStyle)null);
 
 			Widget.ColumnsProportions.Add(new Grid.Proportion());
 			Widget.ColumnsProportions.Add(new Grid.Proportion());
@@ -144,8 +144,7 @@ namespace Myra.Graphics2D.UI
 
 			_textBlock = new TextBlock
 			{
-				GridPositionX = 1,
-				Wrap = false
+				GridPositionX = 1
 			};
 
 			Widget.Widgets.Add(_textBlock);
@@ -225,6 +224,8 @@ namespace Myra.Graphics2D.UI
 			base.FireUp();
 
 			UpdateDrawable();
+
+			_textBlock.IsPressed = IsPressed;
 		}
 
 		protected override void FireDown()
@@ -232,6 +233,8 @@ namespace Myra.Graphics2D.UI
 			base.FireDown();
 
 			UpdateDrawable();
+
+			_textBlock.IsPressed = IsPressed;
 		}
 
 		protected override void SetStyleByName(Stylesheet stylesheet, string name)

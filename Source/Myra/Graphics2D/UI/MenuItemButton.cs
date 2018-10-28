@@ -102,7 +102,7 @@ namespace Myra.Graphics2D.UI
 
 		internal MenuItemButton(MenuItemStyle style)
 		{
-			Widget = new Grid();
+			Widget = new Grid((GridStyle)null);
 
 			_imageProportion = new Grid.Proportion();
 			Widget.ColumnsProportions.Add(_imageProportion);
@@ -152,6 +152,18 @@ namespace Myra.Graphics2D.UI
 			{
 				_textBlock.ApplyTextBlockStyle(style.LabelStyle);
 			}
+		}
+
+		protected override void FireDown()
+		{
+			base.FireDown();
+			_textBlock.IsPressed = IsPressed;
+		}
+
+		protected override void FireUp()
+		{
+			base.FireUp();
+			_textBlock.IsPressed = IsPressed;
 		}
 	}
 }

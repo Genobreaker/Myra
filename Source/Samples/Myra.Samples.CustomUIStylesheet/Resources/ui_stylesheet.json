@@ -20,8 +20,8 @@
 		"image": {
 			"pressedImage": "check-box",
 			"image": "check-box-off",
-			"widthHint": 16,
-			"heightHint": 16
+			"widthHint": 12,
+			"heightHint": 12
 		},
 		"label": {
 			"font": "commodore-64",
@@ -57,7 +57,8 @@
 		"listBoxItem": {
 			"label": {
 				"font": "commodore-64",
-				"textColor": "white"
+				"textColor": "white",
+				"pressedTextColor": "blue"
 			},
 			"pressedBackground": "white"
 		},
@@ -81,7 +82,6 @@
 		"filled": "progress-bar-knob"
 	},
 	"scrollArea": {
-		"background": "blue",
 		"horizontalScroll": "scroll-bar",
 		"horizontalScrollKnob": "scroll-bar-horizontal-knob",
 		"verticalScroll": "scroll-bar",
@@ -94,13 +94,14 @@
 		},
 		"background": "list",
 		"itemsContainer": {
-			"background": "white"
+			"background": "blue"
 		},
 		"comboBoxItem": {
 			"pressedBackground": "button-down",
 			"label": {
 				"font": "commodore-64",
-				"textColor": "white"
+				"textColor": "white",
+				"pressedTextColor": "blue"
 			},
 			"padding": {
 				"top": 5.0,
@@ -139,7 +140,8 @@
 	"textButton": {
 		"label": {
 			"font": "commodore-64",
-			"textColor": "white"
+			"textColor": "white",
+			"pressedTextColor": "blue"
 		},
 		"background": "button",
 		"pressedBackground": "button-down",
@@ -153,7 +155,8 @@
 	"button": {
 		"label": {
 			"font": "commodore-64",
-			"textColor": "white"
+			"textColor": "white",
+			"pressedTextColor": "blue"
 		},
 		"background": "button",
 		"pressedBackground": "button-down",
@@ -217,8 +220,5 @@
 				}
 			}
 		}
-	},
-	"grid": {
-		"background":  "blue"
 	}
 }

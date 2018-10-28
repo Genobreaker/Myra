@@ -226,7 +226,7 @@ namespace Myra.Graphics2D.UI
 
 		public void ApplyListBoxStyle(ListBoxStyle style)
 		{
-			ApplyWidgetStyle(style);
+			ApplyGridStyle(style);
 
 			ListBoxStyle = style;
 		}

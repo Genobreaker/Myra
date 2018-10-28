@@ -283,8 +283,13 @@ namespace Myra.Graphics2D.UI
 
 			if (Desktop != null)
 			{
+				var x = Bounds.X;
+				var y = Bounds.Y;
+				var bounds = new Rectangle(x, y,
+					_titleGrid.Bounds.Right - x,
+					_titleGrid.Bounds.Bottom - y);
 				var mousePos = Desktop.MousePosition;
-				if (_titleGrid.Bounds.Contains(mousePos))
+				if (bounds.Contains(mousePos))
 				{
 					_startPos = mousePos;
 				}

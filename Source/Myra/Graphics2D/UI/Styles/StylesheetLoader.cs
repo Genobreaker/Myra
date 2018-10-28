@@ -57,6 +57,7 @@ namespace Myra.Graphics2D.UI.Styles
 		public const string TextColorName = "textColor";
 		public const string DisabledTextColorName = "disabledTextColor";
 		public const string FocusedTextColorName = "focusedTextColor";
+		public const string PressedTextColorName = "pressedTextColor";
 		public const string HorizontalScrollName = "horizontalScroll";
 		public const string HorizontalScrollKnobName = "horizontalScrollKnob";
 		public const string VerticalScrollName = "verticalScroll";
@@ -331,6 +332,11 @@ namespace Myra.Graphics2D.UI.Styles
 			if (source.GetStyle(DisabledTextColorName, out name))
 			{
 				result.DisabledTextColor = GetColor(name);
+			}
+
+			if (source.GetStyle(PressedTextColorName, out name))
+			{
+				result.PressedTextColor = GetColor(name);
 			}
 		}
 

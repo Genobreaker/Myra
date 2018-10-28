@@ -184,36 +184,17 @@
                   "$id": "31",
                   "$type": "Myra.Graphics2D.UI.ListItem, Myra",
                   "Id": "",
-                  "Text": "Red",
-                  "Color": {
-                    "$id": "32",
-                    "$type": "System.Nullable`1[[Microsoft.Xna.Framework.Color, MonoGame.Framework]], mscorlib",
-                    "R": 255,
-                    "A": 255
-                  }
+                  "Text": "Item 1"
                 },
                 {
                   "$id": "33",
                   "$type": "Myra.Graphics2D.UI.ListItem, Myra",
-                  "Text": "Green",
-                  "Color": {
-                    "$id": "34",
-                    "$type": "System.Nullable`1[[Microsoft.Xna.Framework.Color, MonoGame.Framework]], mscorlib",
-                    "G": 255,
-                    "A": 255
-                  }
+                  "Text": "Item 2"
                 },
                 {
                   "$id": "35",
                   "$type": "Myra.Graphics2D.UI.ListItem, Myra",
-                  "Text": "Blue",
-                  "Color": {
-                    "$id": "36",
-                    "$type": "System.Nullable`1[[Microsoft.Xna.Framework.Color, MonoGame.Framework]], mscorlib",
-                    "B": 255,
-                    "G": 128,
-                    "A": 255
-                  }
+                  "Text": "Item 3"
                 }
               ],
               "WidthHint": 200,
@@ -239,71 +220,31 @@
             {
               "$id": "39",
               "$type": "Myra.Graphics2D.UI.TextBlock, Myra",
-              "Text": "Spin Button:",
+              "Text": "List Box:",
               "GridPositionY": 7
             },
             {
               "$id": "40",
-              "$type": "Myra.Graphics2D.UI.SpinButton, Myra",
-              "Value": 0.0,
-              "DrawLinesColor": {
-                "$id": "41",
-                "$type": "Microsoft.Xna.Framework.Color, MonoGame.Framework",
-                "B": 255,
-                "G": 255,
-                "R": 255,
-                "A": 255
-              },
-              "WidthHint": 100,
-              "GridPositionX": 1,
-              "GridPositionY": 7
-            },
-            {
-              "$id": "42",
-              "$type": "Myra.Graphics2D.UI.TextBlock, Myra",
-              "Text": "List Box:",
-              "GridPositionY": 8
-            },
-            {
-              "$id": "43",
               "$type": "Myra.Graphics2D.UI.ListBox, Myra",
               "Items": [
                 {
-                  "$id": "44",
+                  "$id": "41",
                   "$type": "Myra.Graphics2D.UI.ListItem, Myra",
-                  "Text": "Red",
-                  "Color": {
-                    "$id": "45",
-                    "$type": "System.Nullable`1[[Microsoft.Xna.Framework.Color, MonoGame.Framework]], mscorlib",
-                    "R": 255,
-                    "A": 255
-                  }
+                  "Text": "Item 1"
                 },
                 {
-                  "$id": "46",
+                  "$id": "43",
                   "$type": "Myra.Graphics2D.UI.ListItem, Myra",
-                  "Text": "Green",
-                  "Color": {
-                    "$id": "47",
-                    "$type": "System.Nullable`1[[Microsoft.Xna.Framework.Color, MonoGame.Framework]], mscorlib",
-                    "G": 255,
-                    "A": 255
-                  }
+                  "Text": "Item 2"
                 },
                 {
-                  "$id": "48",
+                  "$id": "45",
                   "$type": "Myra.Graphics2D.UI.ListItem, Myra",
-                  "Text": "Blue",
-                  "Color": {
-                    "$id": "49",
-                    "$type": "System.Nullable`1[[Microsoft.Xna.Framework.Color, MonoGame.Framework]], mscorlib",
-                    "B": 255,
-                    "A": 255
-                  }
+                  "Text": "Item 3"
                 }
               ],
               "DrawLinesColor": {
-                "$id": "50",
+                "$id": "47",
                 "$type": "Microsoft.Xna.Framework.Color, MonoGame.Framework",
                 "B": 255,
                 "G": 255,
@@ -313,13 +254,13 @@
               "WidthHint": 200,
               "HorizontalAlignment": 3,
               "GridPositionX": 1,
-              "GridPositionY": 8
+              "GridPositionY": 7
             },
             {
-              "$id": "51",
+              "$id": "48",
               "$type": "Myra.Graphics2D.UI.TextBlock, Myra",
               "Text": "Tree",
-              "GridPositionY": 9
+              "GridPositionY": 8
             }
           ],
           "Id": "_gridRight",
@@ -332,14 +273,14 @@
         "CanFocus": true
       },
       {
-        "$id": "52",
+        "$id": "49",
         "$type": "Myra.Graphics2D.UI.VerticalSplitPane, Myra",
         "Widgets": [
           {
-            "$id": "53",
+            "$id": "50",
             "$type": "Myra.Graphics2D.UI.Grid, Myra",
             "DrawLinesColor": {
-              "$id": "54",
+              "$id": "51",
               "$type": "Microsoft.Xna.Framework.Color, MonoGame.Framework",
               "B": 255,
               "G": 255,
@@ -349,30 +290,30 @@
             "RowSpacing": 8,
             "ColumnsProportions": [
               {
-                "$id": "55",
+                "$id": "52",
                 "$type": "Myra.Graphics2D.UI.Grid+Proportion, Myra",
                 "Type": 2
               }
             ],
             "RowsProportions": [
               {
-                "$id": "56",
+                "$id": "53",
                 "$type": "Myra.Graphics2D.UI.Grid+Proportion, Myra"
               },
               {
-                "$id": "57",
+                "$id": "54",
                 "$type": "Myra.Graphics2D.UI.Grid+Proportion, Myra",
                 "Type": 2
               }
             ],
             "Widgets": [
               {
-                "$id": "58",
+                "$id": "55",
                 "$type": "Myra.Graphics2D.UI.TextBlock, Myra",
                 "Text": "Vertical Slider:"
               },
               {
-                "$id": "59",
+                "$id": "56",
                 "$type": "Myra.Graphics2D.UI.VerticalSlider, Myra",
                 "Maximum": 100.0,
                 "HorizontalAlignment": 1,
@@ -384,10 +325,10 @@
             "VerticalAlignment": 3
           },
           {
-            "$id": "60",
+            "$id": "57",
             "$type": "Myra.Graphics2D.UI.Grid, Myra",
             "DrawLinesColor": {
-              "$id": "61",
+              "$id": "58",
               "$type": "Microsoft.Xna.Framework.Color, MonoGame.Framework",
               "B": 255,
               "G": 255,
@@ -397,38 +338,38 @@
             "RowSpacing": 8,
             "ColumnsProportions": [
               {
-                "$id": "62",
+                "$id": "59",
                 "$type": "Myra.Graphics2D.UI.Grid+Proportion, Myra",
                 "Type": 2
               }
             ],
             "RowsProportions": [
               {
-                "$id": "63",
+                "$id": "60",
                 "$type": "Myra.Graphics2D.UI.Grid+Proportion, Myra"
               },
               {
-                "$id": "64",
+                "$id": "61",
                 "$type": "Myra.Graphics2D.UI.Grid+Proportion, Myra"
               },
               {
-                "$id": "65",
+                "$id": "62",
                 "$type": "Myra.Graphics2D.UI.Grid+Proportion, Myra",
                 "Type": 2
               }
             ],
             "Widgets": [
               {
-                "$id": "66",
+                "$id": "63",
                 "$type": "Myra.Graphics2D.UI.TextBlock, Myra",
                 "Text": "Progress Bars:"
               },
               {
-                "$id": "67",
+                "$id": "64",
                 "$type": "Myra.Graphics2D.UI.HorizontalProgressBar, Myra",
                 "Maximum": 100.0,
                 "DrawLinesColor": {
-                  "$id": "68",
+                  "$id": "65",
                   "$type": "Microsoft.Xna.Framework.Color, MonoGame.Framework",
                   "B": 255,
                   "G": 255,
@@ -440,11 +381,11 @@
                 "GridPositionY": 1
               },
               {
-                "$id": "69",
+                "$id": "66",
                 "$type": "Myra.Graphics2D.UI.VerticalProgressBar, Myra",
                 "Maximum": 100.0,
                 "DrawLinesColor": {
-                  "$id": "70",
+                  "$id": "67",
                   "$type": "Microsoft.Xna.Framework.Color, MonoGame.Framework",
                   "B": 255,
                   "G": 255,
@@ -464,7 +405,7 @@
         ],
         "HorizontalAlignment": 3,
         "VerticalAlignment": 3,
-        "GridPositionX": 1
+        "GridPositionX": 2
       }
     ],
     "HorizontalAlignment": 3,

@@ -108,8 +108,7 @@ namespace Myra.Graphics2D.UI
 
 			_label = new TextBlock
 			{
-				GridPositionX = 1,
-				Wrap = false
+				GridPositionX = 1
 			};
 
 			Widgets.Add(_label);
@@ -124,7 +123,7 @@ namespace Myra.Graphics2D.UI
 			RowsProportions.Add(new Proportion(ProportionType.Auto));
 
 			// Second is yet another grid holding child nodes
-			_childNodesGrid = new Grid
+			_childNodesGrid = new Grid((GridStyle)null)
 			{
 				Visible = false,
 				GridPositionX = 1,

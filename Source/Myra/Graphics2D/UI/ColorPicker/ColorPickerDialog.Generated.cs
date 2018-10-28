@@ -388,10 +388,6 @@ namespace Myra.Graphics2D.UI.ColorPicker
 			XHint = 216;
 			YHint = 220;
 			WidthHint = 450;
-			PaddingLeft = 5;
-			PaddingRight = 5;
-			PaddingTop = 5;
-			PaddingBottom = 5;
 			CanFocus = true;
 			Content = grid5;
 		}
